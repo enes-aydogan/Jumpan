@@ -1,5 +1,13 @@
-def print_hi(name):
-    print(f'Hi, { name }')
+import sys
+import pygame
 
-if __name__ == '__main__':
-    print_hi('PyCharm')
+#initilize pygame
+pygame.init()
+
+#create screen
+screen = pygame.display.set_mode((800,600))
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:sys.exit()
+    pygame.display.update()
