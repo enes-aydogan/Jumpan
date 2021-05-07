@@ -1,5 +1,6 @@
 import sys
 import pygame
+from player import Player
 
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -25,6 +26,13 @@ authorFont = pygame.font.Font(None, 18)
 
 # Surface
 background = pygame.Surface(screen.get_size())
+
+# Sprite Groups
+allSprites = pygame.sprite.Group()
+
+# Assignment
+player = Player()
+allSprites.add(player)
 
 # Clock to limit speed
 clock = pygame.time.Clock()
@@ -66,6 +74,12 @@ while not exit_program:
 
     if initial_screen:
         initial_Screen()
+    else:
+        startMessage = font.render("game started", True, white)
+        startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
+        screen.blit(startMessage, startMessagePos)
+        player.move(event)
+        allSprites.draw(screen)
 
     pygame.display.flip()
 pygame.quit()
