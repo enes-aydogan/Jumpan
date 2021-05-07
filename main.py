@@ -1,17 +1,22 @@
 import sys
 import pygame
 
-# Initialize pygame
-pygame.init()
-
 black = (0, 0, 0)
 white = (255, 255, 255)
 
+# Initialize pygame
+pygame.init()
+
 # Create screen
-screen = pygame.display.set_mode((800,600))
+screenwidth = 800
+screenheight = 600
+screen = pygame.display.set_mode((screenwidth,screenheight))
 
 # Title of the game window
 pygame.display.set_caption('Jumpman V1.0')
+
+# mouse disappear
+pygame.mouse.set_visible(0)
 
 # Font
 font = pygame.font.Font("font/RetroGaming.ttf", 20)
@@ -24,14 +29,25 @@ background = pygame.Surface(screen.get_size())
 # Clock to limit speed
 clock = pygame.time.Clock()
 
+# Game status checking
+exit_program = False
+initial_screen = True
+
+
 def initial_Screen():
     title = titleFont.render("JUMPMAN", True, (77,166,48))
     titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(title, titlePos)
 
+    startMessage = font.render("press any key to start", True, white)
+    startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
+    screen.blit(startMessage, startMessagePos)
 
-exit_program = False
-initial_screen = True
+    author = authorFont.render("This game completely codded by Muhammet Enes Aydoğan and Hilmi Can Taşkıran", True, white)
+    authorPos = author.get_rect(centerx=background.get_width() - author.get_width() / 2 - 10,
+                                centery=background.get_height() - author.get_height() / 2 - 10)
+    screen.blit(author, authorPos)
+
 
 # Main program loop
 while not exit_program:
