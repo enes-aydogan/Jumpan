@@ -43,7 +43,7 @@ initial_screen = True
 
 
 def initial_Screen():
-    title = titleFont.render("JUMPMAN", True, (77,166,48))
+    title = titleFont.render("JUMPMAN", True, (77, 166, 48))
     titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(title, titlePos)
 

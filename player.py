@@ -4,7 +4,7 @@ from pygame.sprite import Sprite
 class Player(Sprite):
     def __init__(self):
        Sprite.__init__(self)
-       self.image = pygame.image.load("images/player.gif")
+       self.image = pygame.image.load("images/jumpman/jumpman.gif")
        self.rect = self.image.get_rect()
        self.rect.x = 200
        self.rect.y = 100
@@ -15,9 +15,17 @@ class Player(Sprite):
        if event.type == pygame.KEYDOWN:
           if event.key == pygame.K_LEFT:
              if self.rect.x > 0:
-                self.rect.x -= 10
+                self.rect.x -= 5
 
           if event.key == pygame.K_RIGHT:
              if self.rect.x < self.screenwidth - 30:
-                self.rect.x += 10
+                self.rect.x += 5
+
+          if event.key == pygame.K_UP:
+             if self.rect.y > 0:
+                self.rect.y -= 5
+
+          if event.key == pygame.K_DOWN:
+             if self.rect.y < self.screenheight - 30:
+                self.rect.y += 5
 
