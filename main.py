@@ -9,8 +9,8 @@ white = (255, 255, 255)
 pygame.init()
 
 # Create screen
-screenwidth = 800
-screenheight = 600
+screenwidth = 1280
+screenheight = 720
 screen = pygame.display.set_mode((screenwidth,screenheight))
 
 # Title of the game window

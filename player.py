@@ -18,7 +18,7 @@ class Player(Sprite):
                 self.rect.x -= 5
 
           if event.key == pygame.K_RIGHT:
-             if self.rect.x < self.screenwidth - 30:
+             if self.rect.x < self.screenwidth - 64:
                 self.rect.x += 5
 
           if event.key == pygame.K_UP:
@@ -26,6 +26,6 @@ class Player(Sprite):
                 self.rect.y -= 5
 
           if event.key == pygame.K_DOWN:
-             if self.rect.y < self.screenheight - 30:
+             if self.rect.y < self.screenheight - 64:
                 self.rect.y += 5
 
