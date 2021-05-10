@@ -10,6 +10,11 @@ class Player(Sprite):
        self.rect.y = 100
        self.screenheight = pygame.display.get_surface().get_height()
        self.screenwidth = pygame.display.get_surface().get_width()
+       self.jumping = False
+       self.vel_x = 0
+       self.vel_y = 2
+       self.gravity = 1.2
+
 
     def move(self, event):
        if event.type == pygame.KEYDOWN:
@@ -21,11 +26,24 @@ class Player(Sprite):
              if self.rect.x < self.screenwidth - 64:
                 self.rect.x += 5
 
-          if event.key == pygame.K_UP:
-             if self.rect.y > 0:
-                self.rect.y -= 5
+          if self.jumping is False and event.key == pygame.K_LSHIFT:
+             self.jumping = True
+
+          if self.jumping == True:
+             self.rect.y -= self.vel_y
+             self.vel_y -= 1
+             if self.vel_y < -10:
+                self.jumping = False
+                self.vel_y = 10
+
 
           if event.key == pygame.K_DOWN:
              if self.rect.y < self.screenheight - 64:
                 self.rect.y += 5
+
+          if event.key == pygame.K_UP:
+             if self.rect.y < self.screenheight - 64:
+                self.rect.y -= 5
+
+
 
