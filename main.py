@@ -9,8 +9,8 @@ white = (255, 255, 255)
 pygame.init()
 
 # Create screen
-screenwidth = 1280
-screenheight = 720
+screenwidth = 800
+screenheight = 600
 screen = pygame.display.set_mode((screenwidth,screenheight))
 
 # Title of the game window
@@ -40,11 +40,43 @@ clock = pygame.time.Clock()
 # Game status checking
 exit_program = False
 initial_screen = True
+def platformer(screen, image, x_pos, y_pos, loopControl):
+    control = 0
+    loopCntrl = loopControl
+    stp = x_pos
+    while control < loopCntrl:
 
+        imagePos = image.get_rect(centerx=stp, centery=y_pos)
+        screen.blit(image, imagePos)
+        stp = stp + 10
+        control = control + 1
 
+def platform(screen):
+    ground = pygame.image.load("images/platform/platform.gif")
+    platformer(screen, ground, x_pos = 10, y_pos=580, loopControl=80)
+    platformer(screen, ground, x_pos = 300, y_pos=565, loopControl=25)
+
+    """"
+    control = 0
+    base = 10
+    while control < 80:
+        platform = pygame.image.load("images/platform/platform.gif")
+        platformPos = platform.get_rect(centerx=base, centery=580)
+        screen.blit(platform, platformPos)
+        base = base + 10
+        control = control + 1
+    control = 0
+    base = 300
+    while control < 25:
+        platform = pygame.image.load("images/platform/platform.gif")
+        platformPos = platform.get_rect(centerx=base, centery=567)
+        screen.blit(platform, platformPos)
+        base = base + 10
+        control = control + 1
+    """
 def initial_Screen():
     title = titleFont.render("JUMPMAN", True, (77, 166, 48))
-    titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
+    titlePos = title.get_rect(centerx=background.get_width() / 2, centery=500)
     screen.blit(title, titlePos)
 
     startMessage = font.render("press any key to start", True, white)
@@ -78,6 +110,7 @@ while not exit_program:
         startMessage = font.render("game started", True, white)
         startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
         screen.blit(startMessage, startMessagePos)
+        platform(screen)
         player.move(event)
         allSprites.draw(screen)
 
