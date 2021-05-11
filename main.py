@@ -40,21 +40,38 @@ clock = pygame.time.Clock()
 # Game status checking
 exit_program = False
 initial_screen = True
-def platformer(screen, image, x_pos, y_pos, loopControl):
+def platformer(screen, image, x_pos, y_pos, loopControl, axs):
     control = 0
     loopCntrl = loopControl
     stp = x_pos
-    while control < loopCntrl:
-
-        imagePos = image.get_rect(centerx=stp, centery=y_pos)
-        screen.blit(image, imagePos)
-        stp = stp + 10
-        control = control + 1
+    axis = axs
+    if axis == True:
+        while control < loopCntrl:
+            imagePos = image.get_rect(centerx=stp, centery=y_pos)
+            screen.blit(image, imagePos)
+            stp = stp + 10
+            control = control + 1
+    else:
+        stp = y_pos
+        while control < loopCntrl:
+            imagePos = image.get_rect(centerx=x_pos, centery=stp)
+            screen.blit(image, imagePos)
+            stp = stp + 15
+            control = control + 1
 
 def platform(screen):
     ground = pygame.image.load("images/platform/platform.gif")
-    platformer(screen, ground, x_pos = 10, y_pos=580, loopControl=80)
-    platformer(screen, ground, x_pos = 300, y_pos=565, loopControl=25)
+    stair = pygame.image.load("images/platform/stair.gif")
+
+    # Main ground
+    platformer(screen, ground, x_pos = 10, y_pos=580, loopControl=80, axs=True)
+    platformer(screen, ground, x_pos = 300, y_pos=565, loopControl=25, axs=True)
+    # Left first ground
+    platformer(screen, ground, x_pos = 25, y_pos=380, loopControl=25, axs=True)
+    # Right first ground
+    platformer(screen, ground, x_pos = 545, y_pos=380, loopControl=25, axs=True)
+    # Left first stair
+    platformer(screen, stair, x_pos = 50, y_pos=395, loopControl=10, axs=False)
 
     """"
     control = 0
