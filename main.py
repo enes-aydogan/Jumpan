@@ -11,7 +11,7 @@ pygame.init()
 # Create screen
 screenwidth = 800
 screenheight = 600
-screen = pygame.display.set_mode((screenwidth,screenheight))
+screen = pygame.display.set_mode((screenwidth, screenheight))
 
 # Title of the game window
 pygame.display.set_caption('Jumpman V1.0')
@@ -38,8 +38,10 @@ allSprites.add(player)
 clock = pygame.time.Clock()
 
 # Game status checking
-exit_program = False
+run = True
 initial_screen = True
+
+
 def platformer(screen, image, x_pos, y_pos, loopControl, axs):
     control = 0
     loopCntrl = loopControl
@@ -59,19 +61,20 @@ def platformer(screen, image, x_pos, y_pos, loopControl, axs):
             stp = stp + 15
             control = control + 1
 
+
 def platform(screen):
     ground = pygame.image.load("images/platform/platform.gif")
     stair = pygame.image.load("images/platform/stair.gif")
 
     # Main ground
-    platformer(screen, ground, x_pos = 10, y_pos=580, loopControl=80, axs=True)
-    platformer(screen, ground, x_pos = 300, y_pos=565, loopControl=25, axs=True)
+    platformer(screen, ground, x_pos=10, y_pos=580, loopControl=80, axs=True)
+    platformer(screen, ground, x_pos=300, y_pos=565, loopControl=25, axs=True)
     # Left first ground
-    platformer(screen, ground, x_pos = 25, y_pos=380, loopControl=25, axs=True)
+    platformer(screen, ground, x_pos=25, y_pos=380, loopControl=25, axs=True)
     # Right first ground
-    platformer(screen, ground, x_pos = 545, y_pos=380, loopControl=25, axs=True)
+    platformer(screen, ground, x_pos=545, y_pos=380, loopControl=25, axs=True)
     # Left first stair
-    platformer(screen, stair, x_pos = 50, y_pos=395, loopControl=10, axs=False)
+    platformer(screen, stair, x_pos=50, y_pos=395, loopControl=10, axs=False)
 
     """"
     control = 0
@@ -91,23 +94,24 @@ def platform(screen):
         base = base + 10
         control = control + 1
     """
+
+
 def initial_Screen():
     title = titleFont.render("JUMPMAN", True, (77, 166, 48))
-    titlePos = title.get_rect(centerx=background.get_width() / 2, centery=500)
+    titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(title, titlePos)
 
     startMessage = font.render("press any key to start", True, white)
     startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
     screen.blit(startMessage, startMessagePos)
 
-    author = authorFont.render("This game completely codded by Muhammet Enes Aydoğan and Hilmi Can Taşkıran", True, white)
-    authorPos = author.get_rect(centerx=background.get_width() - author.get_width() / 2 - 10,
-                                centery=background.get_height() - author.get_height() / 2 - 10)
+    author = authorFont.render("Authors: Muhammet Enes Aydoğan and Hilmi Can Taşkıran", True, white)
+    authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
     screen.blit(author, authorPos)
 
 
 # Main program loop
-while not exit_program:
+while run:
     # Limit to 30 fps
     clock.tick(70)
     # Clear the screen
@@ -115,10 +119,10 @@ while not exit_program:
     # Process the events in the game
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            exit_program = True
+            run = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                exit_program = True
+                run = False
             initial_screen = False
 
     if initial_screen:
