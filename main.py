@@ -47,9 +47,11 @@ def platformer(screen, image, x_pos, y_pos, loopControl, axs):
     loopCntrl = loopControl
     stp = x_pos
     axis = axs
+    rect_list = []
     if axis == True:
         while control < loopCntrl:
             imagePos = image.get_rect(centerx=stp, centery=y_pos)
+            rect_list.append(imagePos)
             screen.blit(image, imagePos)
             stp = stp + 10
             control = control + 1
@@ -57,6 +59,7 @@ def platformer(screen, image, x_pos, y_pos, loopControl, axs):
         stp = y_pos
         while control < loopCntrl:
             imagePos = image.get_rect(centerx=x_pos, centery=stp)
+            rect_list.append(imagePos)
             screen.blit(image, imagePos)
             stp = stp + 15
             control = control + 1
