@@ -2,7 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 
 class Player(Sprite):
-    def __init__(self):
+      def __init__(self):
        scale = 1
        Sprite.__init__(self)
        self.image = pygame.image.load("images/jumpman/jumpman.gif")
@@ -18,7 +18,7 @@ class Player(Sprite):
        self.gravity = 1.2
 
 
-    def move(self, event):
+      def move(self, event):
        if event.type == pygame.KEYDOWN:
           if event.key == pygame.K_LEFT:
              if self.rect.x > 0:
@@ -38,14 +38,10 @@ class Player(Sprite):
                 self.jumping = False
                 self.vel_y = 10
 
-
           if event.key == pygame.K_DOWN:
-             if self.rect.y < 565:
-                self.rect.y += 5
+              if self.rect.y < 565:
+                  self.rect.y += 5
 
           if event.key == pygame.K_UP:
-             if self.rect.y > 0:
-                self.rect.y -= 5
-
-
-
+              if self.rect.y > 0:
+                  self.rect.y -= 5
