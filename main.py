@@ -22,17 +22,13 @@ pygame.mouse.set_visible(0)
 # Font
 font = pygame.font.Font("font/RetroGaming.ttf", 20)
 titleFont = pygame.font.Font("font/RetroGaming.ttf", 90)
-authorFont = pygame.font.Font(None, 18)
+authorFont = pygame.font.Font(None, 20)
 
 # Surface
 background = pygame.Surface(screen.get_size())
 
-# Sprite Groups
-allSprites = pygame.sprite.Group()
-
 # Assignment
 player = Player()
-allSprites.add(player)
 
 # Clock to limit speed
 clock = pygame.time.Clock()
@@ -116,7 +112,7 @@ def initial_Screen():
 # Main program loop
 while run:
     # Limit to 30 fps
-    clock.tick(70)
+    clock.tick(30)
     # Clear the screen
     screen.fill(black)
     # Process the events in the game
@@ -130,14 +126,13 @@ while run:
 
     if initial_screen:
         initial_Screen()
+
     else:
-        startMessage = font.render("game started", True, white)
-        startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
-        screen.blit(startMessage, startMessagePos)
         platform(screen)
         player.move(event)
-        allSprites.draw(screen)
+        player.draw(screen)
 
     pygame.display.flip()
+
 pygame.quit()
 quit()
