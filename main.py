@@ -1,6 +1,10 @@
 import sys
 import pygame
 from player import Player
+from world import World
+import platformPiece
+
+print(platformPiece.__file__)
 
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -22,13 +26,18 @@ pygame.mouse.set_visible(0)
 # Font
 font = pygame.font.Font("font/RetroGaming.ttf", 20)
 titleFont = pygame.font.Font("font/RetroGaming.ttf", 90)
-authorFont = pygame.font.Font(None, 20)
+authorFont = pygame.font.Font(None, 18)
 
 # Surface
 background = pygame.Surface(screen.get_size())
 
+# Sprite Groups
+allSprites = pygame.sprite.Group()
+
 # Assignment
 player = Player()
+world = World()
+# rect_list = world.platform_rect()
 
 # Clock to limit speed
 clock = pygame.time.Clock()
@@ -37,62 +46,28 @@ clock = pygame.time.Clock()
 run = True
 initial_screen = True
 
-
-def platformer(screen, image, x_pos, y_pos, loopControl, axs):
-    control = 0
-    loopCntrl = loopControl
-    stp = x_pos
-    axis = axs
-    rect_list = []
-    if axis == True:
-        while control < loopCntrl:
-            imagePos = image.get_rect(centerx=stp, centery=y_pos)
-            rect_list.append(imagePos)
-            screen.blit(image, imagePos)
-            stp = stp + 10
-            control = control + 1
-    else:
-        stp = y_pos
-        while control < loopCntrl:
-            imagePos = image.get_rect(centerx=x_pos, centery=stp)
-            rect_list.append(imagePos)
-            screen.blit(image, imagePos)
-            stp = stp + 15
-            control = control + 1
+platformGroup = pygame.sprite.Group()
+stairGroup = pygame.sprite.Group()
 
 
-def platform(screen):
+def platform(pGroup, sGroup):
     ground = pygame.image.load("images/platform/platform.gif")
     stair = pygame.image.load("images/platform/stair.gif")
 
     # Main ground
-    platformer(screen, ground, x_pos=10, y_pos=580, loopControl=80, axs=True)
-    platformer(screen, ground, x_pos=300, y_pos=565, loopControl=25, axs=True)
+    world.platformer(ground, x_pos=10, y_pos=580, loopControl=80, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=300, y_pos=565, loopControl=25, axs=True, group=pGroup)
     # Left first ground
-    platformer(screen, ground, x_pos=25, y_pos=380, loopControl=25, axs=True)
+    world.platformer(ground, x_pos=25, y_pos=380, loopControl=25, axs=True, group=pGroup)
     # Right first ground
-    platformer(screen, ground, x_pos=545, y_pos=380, loopControl=25, axs=True)
+    world.platformer(ground, x_pos=545, y_pos=380, loopControl=25, axs=True, group=pGroup)
     # Left first stair
-    platformer(screen, stair, x_pos=50, y_pos=395, loopControl=10, axs=False)
+    world.platformer(stair, x_pos=50, y_pos=380, loopControl=10, axs=False, group=sGroup)
 
-    """"
-    control = 0
-    base = 10
-    while control < 80:
-        platform = pygame.image.load("images/platform/platform.gif")
-        platformPos = platform.get_rect(centerx=base, centery=580)
-        screen.blit(platform, platformPos)
-        base = base + 10
-        control = control + 1
-    control = 0
-    base = 300
-    while control < 25:
-        platform = pygame.image.load("images/platform/platform.gif")
-        platformPos = platform.get_rect(centerx=base, centery=567)
-        screen.blit(platform, platformPos)
-        base = base + 10
-        control = control + 1
-    """
+    # print(world.platform_rect(screen, ground, x_pos=10, y_pos=580, loopControl=80, axs=True))
+
+
+platform(platformGroup, stairGroup)
 
 
 def initial_Screen():
@@ -126,13 +101,16 @@ while run:
 
     if initial_screen:
         initial_Screen()
-
     else:
-        platform(screen)
+        startMessage = font.render("game started", True, white)
+        startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
+        screen.blit(startMessage, startMessagePos)
+        platformGroup.draw(screen)
+        stairGroup.draw(screen)
+        player.functions(platformGroup)
         player.move(event)
         player.draw(screen)
 
     pygame.display.flip()
-
 pygame.quit()
 quit()
