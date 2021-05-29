@@ -14,8 +14,8 @@ class Player(Sprite):
         #        self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * self.scale),
         #                                                         int(self.image.get_height() * self.scale)))
         self.rect = self.image.get_rect()
-        self.rect.x = 200
-        self.rect.y = 200
+        self.rect.x = 400
+        self.rect.y = 450
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
         self.move_left = False

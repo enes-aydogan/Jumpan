@@ -53,6 +53,8 @@ stairGroup = pygame.sprite.Group()
 def platform(pGroup, sGroup):
     ground = pygame.image.load("images/platform/platform.gif")
     stair = pygame.image.load("images/platform/stair.gif")
+    ivy = pygame.image.load("images/platform/ivy.gif")
+    coin = pygame.image.load("images/platform/point.gif")
 
     # Main ground
     world.platformer(ground, x_pos=40, y_pos=515, loopControl=72, axs=True, group=pGroup)
@@ -108,30 +110,50 @@ def platform(pGroup, sGroup):
     # Right third-ground floor
     world.platformer(ground, x_pos=656, y_pos=315, loopControl=9, axs=True, group=pGroup)
     # Right second-ground floor
-    world.platformer(ground, x_pos=646, y_pos=215, loopControl=9, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=656, y_pos=215, loopControl=9, axs=True, group=pGroup)
     # Third main-ground floor
     world.platformer(ground, x_pos=281, y_pos=315, loopControl=23, axs=True, group=pGroup)
     # Third left-piece ground
-
     world.platformer(ground, x_pos=194 , y_pos=315, loopControl=3, axs=True, group=pGroup)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # Third right-piece ground
+    world.platformer(ground, x_pos=568 , y_pos=315, loopControl=3, axs=True, group=pGroup)
+    # Third main floor
+    world.platformer(ground, x_pos=205 , y_pos= 200, loopControl=7, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=281 , y_pos=204, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=298 , y_pos=208, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=315 , y_pos=212, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=332 , y_pos=216, loopControl=12, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=459, y_pos=212, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=476, y_pos=208, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=493, y_pos=204, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=510, y_pos=200, loopControl=7, axs=True, group=pGroup)
+    # First main ground-stair
+    world.platformer(stair, x_pos=306, y_pos=311, loopControl=6, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=477, y_pos=311, loopControl=6, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=390, y_pos=218, loopControl=6, axs=False, group=sGroup)
+    # Left Last stair
+    world.platformer(stair, x_pos=95, y_pos=90, loopControl=16, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=230, y_pos=103, loopControl=6, axs=False, group=sGroup)
+    # Right last stair
+    world.platformer(stair, x_pos=680, y_pos=90, loopControl=16, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=540, y_pos=103, loopControl=6, axs=False, group=sGroup)
+    # Left IVY
+    world.platformer(ivy, x_pos=207, y_pos=337, loopControl=2, axs=False, group=sGroup)
+    # Rigth IVY
+    world.platformer(ivy, x_pos=575, y_pos=337, loopControl=2, axs=False, group=sGroup)
+    # Coins
+    world.platformer(coin, x_pos=40, y_pos=85, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=40, y_pos=175, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=40, y_pos=500, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=315, y_pos=450, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=450, y_pos=450, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=750, y_pos=500, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=725, y_pos=175, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=725, y_pos=85, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=425, y_pos=74, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=340, y_pos=74, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=200, y_pos=275, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=585, y_pos=275, loopControl=1, axs=False, group=sGroup)
 
 platform(platformGroup, stairGroup)
 
