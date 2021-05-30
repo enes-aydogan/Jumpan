@@ -15,7 +15,7 @@ class Player(Sprite):
         #                                                         int(self.image.get_height() * self.scale)))
         self.rect = self.image.get_rect()
         self.rect.x = 400
-        self.rect.y = 450
+        self.rect.y = 10
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
         self.move_left = False
@@ -27,8 +27,8 @@ class Player(Sprite):
         self.move_x = 5
         self.move_y = 5
         self.vel_x = 0
-        self.vel_y = 2
-        self.gravity = 1.2
+        self.vel_y = 10
+        self.gravity_force = 5
 
     def functions(self, platformGroup):
         if self.move_left:
@@ -48,7 +48,7 @@ class Player(Sprite):
                     self.rect.y -= self.move_y
         if self.move_up:
             if self.rect.y > 0:
-                self.rect.y -= self.move_y
+                self.rect.y -= (self.move_y * 2)
                 if pygame.sprite.spritecollide(self, platformGroup, False):
                     self.rect.y += self.move_y
         if self.jumping:
@@ -89,8 +89,10 @@ class Player(Sprite):
             self.move_up = False
             self.move_down = False
 
-    def gravity(self):
-        self.rect.y += 3.2
+    def gravity(self, platformGroup):
+        self.rect.y += self.gravity_force
+        if pygame.sprite.spritecollide(self, platformGroup, False):
+            self.rect.y -= self.gravity_force
 
     def draw(self, screen):
         if self.direction == 0:

@@ -194,6 +194,7 @@ while run:
         stairGroup.draw(screen)
         player.functions(platformGroup)
         player.move(event)
+        player.gravity(platformGroup)
         player.draw(screen)
 
     pygame.display.flip()
