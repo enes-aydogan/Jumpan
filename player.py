@@ -14,8 +14,8 @@ class Player(Sprite):
         #        self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * self.scale),
         #                                                         int(self.image.get_height() * self.scale)))
         self.rect = self.image.get_rect()
-        self.rect.x = 400
-        self.rect.y = 10
+        self.rect.x = 160
+        self.rect.y = 405
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
         self.move_left = False
@@ -30,27 +30,48 @@ class Player(Sprite):
         self.vel_y = 10
         self.gravity_force = 5
 
-    def functions(self, platformGroup):
+    def functions(self, platformGroup, stairGroup, rampGroupU):
         if self.move_left:
             if self.rect.x > 0:
                 self.rect.x -= self.move_x
                 if pygame.sprite.spritecollide(self, platformGroup, False):
                     self.rect.x += self.move_x
+
         if self.move_right:
             if self.rect.x < self.screenwidth - 32:
                 self.rect.x += self.move_x
                 if pygame.sprite.spritecollide(self, platformGroup, False):
+                    self.rect.x += self.move_x
+                elif pygame.sprite.spritecollide(self, rampGroupU, False):
+                    self.rect.y -= self.move_y - 2
+                    self.rect.x += self.move_x - 2
+                else:
                     self.rect.x -= self.move_x
         if self.move_down:
             if self.rect.y < 565:
                 self.rect.y += self.move_y
-                if pygame.sprite.spritecollide(self, platformGroup, False):
-                    self.rect.y -= self.move_y
+                if pygame.sprite.spritecollide(self, stairGroup, False):
+                    self.rect.y += self.move_y
+                else:
+                    if pygame.sprite.spritecollide(self, platformGroup, False):
+                        self.rect.y -= self.move_y
+                    elif pygame.sprite.spritecollide(self, rampGroupU, False):
+                        self.rect.y -= self.move_y
+                    else:
+                        self.rect.y -= self.move_y
+
         if self.move_up:
             if self.rect.y > 0:
-                self.rect.y -= (self.move_y * 2)
-                if pygame.sprite.spritecollide(self, platformGroup, False):
-                    self.rect.y += self.move_y
+                self.rect.y -= (self.move_y + 1)
+                if pygame.sprite.spritecollide(self, stairGroup, False):
+                    self.rect.y -= (self.move_y + 1)
+                else:
+                    if pygame.sprite.spritecollide(self, platformGroup, False):
+                        self.rect.y += self.move_y
+                    elif pygame.sprite.spritecollide(self, rampGroupU, False):
+                        self.rect.y += self.move_y
+                    else:
+                        self.rect.y += self.move_y
         if self.jumping:
             self.direction = 2
             self.rect.y -= self.vel_y
@@ -89,9 +110,11 @@ class Player(Sprite):
             self.move_up = False
             self.move_down = False
 
-    def gravity(self, platformGroup):
+    def gravity(self, platformGroup, rampGroupU):
         self.rect.y += self.gravity_force
         if pygame.sprite.spritecollide(self, platformGroup, False):
+            self.rect.y -= self.gravity_force
+        elif pygame.sprite.spritecollide(self, rampGroupU, False):
             self.rect.y -= self.gravity_force
 
     def draw(self, screen):

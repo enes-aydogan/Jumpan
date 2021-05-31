@@ -48,9 +48,9 @@ initial_screen = True
 
 platformGroup = pygame.sprite.Group()
 stairGroup = pygame.sprite.Group()
+rampGroupU = pygame.sprite.Group()
 
-
-def platform(pGroup, sGroup):
+def platform(pGroup, sGroup, rGroupU):
     ground = pygame.image.load("images/platform/platform.gif")
     stair = pygame.image.load("images/platform/stair.gif")
     ivy = pygame.image.load("images/platform/ivy.gif")
@@ -68,13 +68,13 @@ def platform(pGroup, sGroup):
     # Right first stair
     world.platformer(stair, x_pos=680, y_pos=440, loopControl=5, axs=False, group=sGroup)
     # First left-main floor
-    world.platformer(ground, x_pos=162, y_pos=436, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=179, y_pos=432, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=196, y_pos=428, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=213, y_pos=424, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=230, y_pos=420, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=247, y_pos=416, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=264, y_pos=412, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=162, y_pos=436, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=179, y_pos=432, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=196, y_pos=428, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=213, y_pos=424, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=230, y_pos=420, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=247, y_pos=416, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=264, y_pos=412, loopControl=1, axs=True, group=rGroupU)
     # First main floor
     world.platformer(ground, x_pos=281, y_pos=408, loopControl=23, axs=True, group=pGroup)
     # First right-main floor
@@ -155,7 +155,8 @@ def platform(pGroup, sGroup):
     world.platformer(coin, x_pos=200, y_pos=275, loopControl=1, axs=False, group=sGroup)
     world.platformer(coin, x_pos=585, y_pos=275, loopControl=1, axs=False, group=sGroup)
 
-platform(platformGroup, stairGroup)
+
+platform(platformGroup, stairGroup, rampGroupU)
 
 
 def initial_Screen():
@@ -191,10 +192,11 @@ while run:
         initial_Screen()
     else:
         platformGroup.draw(screen)
+        rampGroupU.draw(screen)
         stairGroup.draw(screen)
-        player.functions(platformGroup)
+        player.functions(platformGroup, stairGroup, rampGroupU)
         player.move(event)
-        player.gravity(platformGroup)
+        player.gravity(platformGroup, rampGroupU)
         player.draw(screen)
 
     pygame.display.flip()
