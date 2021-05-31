@@ -52,6 +52,7 @@ rampGroupU = pygame.sprite.Group()
 
 def platform(pGroup, sGroup, rGroupU):
     ground = pygame.image.load("images/platform/platform.gif")
+    ground = pygame.transform.scale(ground, (int(ground.get_width() * 0.5), int(ground.get_height() * 0.5)))
     stair = pygame.image.load("images/platform/stair.gif")
     ivy = pygame.image.load("images/platform/ivy.gif")
     coin = pygame.image.load("images/platform/point.gif")
