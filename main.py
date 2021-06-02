@@ -49,8 +49,9 @@ initial_screen = True
 platformGroup = pygame.sprite.Group()
 stairGroup = pygame.sprite.Group()
 rampGroupU = pygame.sprite.Group()
+rampGroupD = pygame.sprite.Group()
 
-def platform(pGroup, sGroup, rGroupU):
+def platform(pGroup, sGroup, rGroupU, rGroupD):
     ground = pygame.image.load("images/platform/platform.gif")
     ground = pygame.transform.scale(ground, (int(ground.get_width() * 0.5), int(ground.get_height() * 0.5)))
     stair = pygame.image.load("images/platform/stair.gif")
@@ -79,35 +80,35 @@ def platform(pGroup, sGroup, rGroupU):
     # First main floor
     world.platformer(ground, x_pos=281, y_pos=408, loopControl=23, axs=True, group=pGroup)
     # First right-main floor
-    world.platformer(ground, x_pos=517, y_pos=412, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=534, y_pos=416, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=551, y_pos=420, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=568, y_pos=424, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=585, y_pos=428, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=602, y_pos=432, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=619, y_pos=436, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=517, y_pos=412, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=534, y_pos=416, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=551, y_pos=420, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=568, y_pos=424, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=585, y_pos=428, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=602, y_pos=432, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=619, y_pos=436, loopControl=1, axs=True, group=rGroupD)
     # Second left-ground floor
     world.platformer(ground, x_pos=40, y_pos=315, loopControl=9, axs=True, group=pGroup)
     # Third left-ground floor
     world.platformer(ground, x_pos=40, y_pos=215, loopControl=9, axs=True, group=pGroup)
     # Fourth left-ground floor
     world.platformer(ground, x_pos=40, y_pos=100, loopControl=9, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=137, y_pos=104, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=154, y_pos=108, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=171, y_pos=104, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=137, y_pos=104, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=154, y_pos=108, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=171, y_pos=104, loopControl=1, axs=True, group=rGroupU)
     world.platformer(ground, x_pos=188, y_pos=100, loopControl=11, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=305, y_pos=96, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=322, y_pos=92, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=339, y_pos=88, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=305, y_pos=96, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=322, y_pos=92, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=339, y_pos=88, loopControl=1, axs=True, group=rGroupU)
     # Fourth right-ground floor
     world.platformer(ground, x_pos=646, y_pos=100, loopControl=9, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=629, y_pos=104, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=612, y_pos=108, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=595, y_pos=104, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=629, y_pos=104, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=612, y_pos=108, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=595, y_pos=104, loopControl=1, axs=True, group=rGroupU)
     world.platformer(ground, x_pos=478, y_pos=100, loopControl=11, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=461, y_pos=96, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=444, y_pos=92, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=427, y_pos=88, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=461, y_pos=96, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=444, y_pos=92, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=427, y_pos=88, loopControl=1, axs=True, group=rGroupD)
     # Right third-ground floor
     world.platformer(ground, x_pos=656, y_pos=315, loopControl=9, axs=True, group=pGroup)
     # Right second-ground floor
@@ -120,13 +121,13 @@ def platform(pGroup, sGroup, rGroupU):
     world.platformer(ground, x_pos=568 , y_pos=315, loopControl=3, axs=True, group=pGroup)
     # Third main floor
     world.platformer(ground, x_pos=205 , y_pos= 200, loopControl=7, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=281 , y_pos=204, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=298 , y_pos=208, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=315 , y_pos=212, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=281 , y_pos=204, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=298 , y_pos=208, loopControl=1, axs=True, group=rGroupD)
+    world.platformer(ground, x_pos=315 , y_pos=212, loopControl=1, axs=True, group=rGroupD)
     world.platformer(ground, x_pos=332 , y_pos=216, loopControl=12, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=459, y_pos=212, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=476, y_pos=208, loopControl=1, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=493, y_pos=204, loopControl=1, axs=True, group=pGroup)
+    world.platformer(ground, x_pos=459, y_pos=212, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=476, y_pos=208, loopControl=1, axs=True, group=rGroupU)
+    world.platformer(ground, x_pos=493, y_pos=204, loopControl=1, axs=True, group=rGroupD)
     world.platformer(ground, x_pos=510, y_pos=200, loopControl=7, axs=True, group=pGroup)
     # First main ground-stair
     world.platformer(stair, x_pos=306, y_pos=301, loopControl=6, axs=False, group=sGroup)
@@ -157,7 +158,7 @@ def platform(pGroup, sGroup, rGroupU):
     world.platformer(coin, x_pos=585, y_pos=275, loopControl=1, axs=False, group=sGroup)
 
 
-platform(platformGroup, stairGroup, rampGroupU)
+platform(platformGroup, stairGroup, rampGroupU, rampGroupD)
 
 
 def initial_Screen():
@@ -194,10 +195,11 @@ while run:
     else:
         platformGroup.draw(screen)
         rampGroupU.draw(screen)
+        rampGroupD.draw(screen)
         stairGroup.draw(screen)
-        player.functions(platformGroup, stairGroup, rampGroupU)
+        player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD)
         player.move(event)
-        player.gravity(platformGroup, rampGroupU)
+        player.gravity(platformGroup, rampGroupU, rampGroupD)
         player.draw(screen)
 
     pygame.display.flip()
