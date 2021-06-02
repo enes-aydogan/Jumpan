@@ -51,6 +51,7 @@ stairGroup = pygame.sprite.Group()
 rampGroupU = pygame.sprite.Group()
 rampGroupD = pygame.sprite.Group()
 
+
 def platform(pGroup, sGroup, rGroupU, rGroupD):
     ground = pygame.image.load("images/platform/platform.gif")
     ground = pygame.transform.scale(ground, (int(ground.get_width() * 0.5), int(ground.get_height() * 0.5)))
@@ -140,9 +141,9 @@ def platform(pGroup, sGroup, rGroupU, rGroupD):
     world.platformer(stair, x_pos=680, y_pos=88, loopControl=14, axs=False, group=sGroup)
     world.platformer(stair, x_pos=540, y_pos=93, loopControl=6, axs=False, group=sGroup)
     # Left IVY
-    world.platformer(ivy, x_pos=207, y_pos=221, loopControl=2, axs=False, group=sGroup)
+    world.platformer(ivy, x_pos=202, y_pos=328, loopControl=2, axs=False, group=sGroup)
     # Rigth IVY
-    world.platformer(ivy, x_pos=575, y_pos=221, loopControl=2, axs=False, group=sGroup)
+    world.platformer(ivy, x_pos=570, y_pos=328, loopControl=2, axs=False, group=sGroup)
     # Coins
     world.platformer(coin, x_pos=40, y_pos=85, loopControl=1, axs=False, group=sGroup)
     world.platformer(coin, x_pos=40, y_pos=175, loopControl=1, axs=False, group=sGroup)

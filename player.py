@@ -51,8 +51,10 @@ class Player(Sprite):
                 if pygame.sprite.spritecollide(self, platformGroup, False):
                     self.rect.x += self.move_x
                 elif pygame.sprite.spritecollide(self, rampGroupU, False):
-                    self.rect.y -= self.move_y - 2
+                    self.rect.y -= self.move_y
                     self.rect.x += self.move_x - 2
+                    if pygame.sprite.spritecollide(self, platformGroup, False):
+                        self.rect.y -= self.move_y + 3
                 elif pygame.sprite.spritecollide(self, rampGroupU, False):
                     self.rect.y -= self.move_y - 2
                     self.rect.x += self.move_x - 2
