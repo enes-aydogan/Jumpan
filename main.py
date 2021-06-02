@@ -134,10 +134,10 @@ def platform(pGroup, sGroup, rGroupU, rGroupD):
     world.platformer(stair, x_pos=477, y_pos=301, loopControl=6, axs=False, group=sGroup)
     world.platformer(stair, x_pos=390, y_pos=208, loopControl=6, axs=False, group=sGroup)
     # Left Last stair
-    world.platformer(stair, x_pos=95, y_pos=58, loopControl=16, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=95, y_pos=88, loopControl=14, axs=False, group=sGroup)
     world.platformer(stair, x_pos=230, y_pos=93, loopControl=6, axs=False, group=sGroup)
     # Right last stair
-    world.platformer(stair, x_pos=680, y_pos=58, loopControl=16, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=680, y_pos=88, loopControl=14, axs=False, group=sGroup)
     world.platformer(stair, x_pos=540, y_pos=93, loopControl=6, axs=False, group=sGroup)
     # Left IVY
     world.platformer(ivy, x_pos=207, y_pos=221, loopControl=2, axs=False, group=sGroup)
