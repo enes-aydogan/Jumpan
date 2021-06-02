@@ -65,9 +65,9 @@ def platform(pGroup, sGroup, rGroupU):
     # Right first ground
     world.platformer(ground, x_pos=636, y_pos=440, loopControl=11, axs=True, group=pGroup)
     # Left first stair
-    world.platformer(stair, x_pos=100, y_pos=440, loopControl=5, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=100, y_pos=423, loopControl=5, axs=False, group=sGroup)
     # Right first stair
-    world.platformer(stair, x_pos=680, y_pos=440, loopControl=5, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=680, y_pos=423, loopControl=5, axs=False, group=sGroup)
     # First left-main floor
     world.platformer(ground, x_pos=162, y_pos=436, loopControl=1, axs=True, group=rGroupU)
     world.platformer(ground, x_pos=179, y_pos=432, loopControl=1, axs=True, group=rGroupU)
@@ -129,19 +129,19 @@ def platform(pGroup, sGroup, rGroupU):
     world.platformer(ground, x_pos=493, y_pos=204, loopControl=1, axs=True, group=pGroup)
     world.platformer(ground, x_pos=510, y_pos=200, loopControl=7, axs=True, group=pGroup)
     # First main ground-stair
-    world.platformer(stair, x_pos=306, y_pos=311, loopControl=6, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=477, y_pos=311, loopControl=6, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=390, y_pos=218, loopControl=6, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=306, y_pos=301, loopControl=6, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=477, y_pos=301, loopControl=6, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=390, y_pos=208, loopControl=6, axs=False, group=sGroup)
     # Left Last stair
-    world.platformer(stair, x_pos=95, y_pos=90, loopControl=16, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=230, y_pos=103, loopControl=6, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=95, y_pos=58, loopControl=16, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=230, y_pos=93, loopControl=6, axs=False, group=sGroup)
     # Right last stair
-    world.platformer(stair, x_pos=680, y_pos=90, loopControl=16, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=540, y_pos=103, loopControl=6, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=680, y_pos=58, loopControl=16, axs=False, group=sGroup)
+    world.platformer(stair, x_pos=540, y_pos=93, loopControl=6, axs=False, group=sGroup)
     # Left IVY
-    world.platformer(ivy, x_pos=207, y_pos=337, loopControl=2, axs=False, group=sGroup)
+    world.platformer(ivy, x_pos=207, y_pos=221, loopControl=2, axs=False, group=sGroup)
     # Rigth IVY
-    world.platformer(ivy, x_pos=575, y_pos=337, loopControl=2, axs=False, group=sGroup)
+    world.platformer(ivy, x_pos=575, y_pos=221, loopControl=2, axs=False, group=sGroup)
     # Coins
     world.platformer(coin, x_pos=40, y_pos=85, loopControl=1, axs=False, group=sGroup)
     world.platformer(coin, x_pos=40, y_pos=175, loopControl=1, axs=False, group=sGroup)
