@@ -50,10 +50,10 @@ platformGroup = pygame.sprite.Group()
 stairGroup = pygame.sprite.Group()
 rampGroupU = pygame.sprite.Group()
 rampGroupD = pygame.sprite.Group()
+coinGroup = pygame.sprite.Group()
 
-
-def platform(pGroup, sGroup, rGroupU, rGroupD):
-    ground = pygame.image.load("images/platform/platform.gif")
+def platform(pGroup, sGroup, rGroupU, rGroupD, coinGroup):
+    ground = pygame.image.load("images/platform/newplatform.png")
     ground = pygame.transform.scale(ground, (int(ground.get_width() * 0.5), int(ground.get_height() * 0.5)))
     stair = pygame.image.load("images/platform/stair.gif")
     ivy = pygame.image.load("images/platform/ivy.gif")
@@ -145,21 +145,21 @@ def platform(pGroup, sGroup, rGroupU, rGroupD):
     # Rigth IVY
     world.platformer(ivy, x_pos=570, y_pos=328, loopControl=2, axs=False, group=sGroup)
     # Coins
-    world.platformer(coin, x_pos=40, y_pos=85, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=40, y_pos=175, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=40, y_pos=500, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=315, y_pos=450, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=450, y_pos=450, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=750, y_pos=500, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=725, y_pos=175, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=725, y_pos=85, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=425, y_pos=74, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=340, y_pos=74, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=200, y_pos=275, loopControl=1, axs=False, group=sGroup)
-    world.platformer(coin, x_pos=585, y_pos=275, loopControl=1, axs=False, group=sGroup)
+    world.platformer(coin, x_pos=40, y_pos=85, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=40, y_pos=175, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=40, y_pos=500, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=315, y_pos=450, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=450, y_pos=450, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=750, y_pos=500, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=725, y_pos=175, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=725, y_pos=85, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=425, y_pos=74, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=340, y_pos=74, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=200, y_pos=275, loopControl=1, axs=False, group=coinGroup)
+    world.platformer(coin, x_pos=585, y_pos=275, loopControl=1, axs=False, group=coinGroup)
 
 
-platform(platformGroup, stairGroup, rampGroupU, rampGroupD)
+platform(platformGroup, stairGroup, rampGroupU, rampGroupD, coinGroup)
 
 
 def initial_Screen():
@@ -198,7 +198,7 @@ while run:
         rampGroupU.draw(screen)
         rampGroupD.draw(screen)
         stairGroup.draw(screen)
-        player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD)
+        player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, coinGroup, screen)
         player.move(event)
         player.gravity(platformGroup, rampGroupU, rampGroupD)
         player.draw(screen)

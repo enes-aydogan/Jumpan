@@ -11,11 +11,15 @@ class Player(Sprite):
         self.image_move_right = pygame.image.load("images/jumpman/jumpman_move_right.gif")
         self.image_jump_left = pygame.image.load("images/jumpman/jumpman_run_left.gif")
         self.image_jump_right = pygame.image.load("images/jumpman/jumpman_run_right.gif")
+        self.coinImage = pygame.image.load("images/platform/point.gif")
+
         #        self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * self.scale),
         #                                                         int(self.image.get_height() * self.scale)))
         self.rect = self.image.get_rect()
         self.rect.x = 160
         self.rect.y = 405
+        self.rect.w = 32
+        self.rect.h = 32
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
         self.move_left = False
@@ -29,13 +33,19 @@ class Player(Sprite):
         self.vel_x = 0
         self.vel_y = 10
         self.gravity_force = 5
+        self.totalCoin = 0
+        self.coins = [
+            pygame.Rect(40, 85, 32, 32)
+        ]
+        self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
 
-    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD):
+    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, coinGroup, screen):
         if self.move_left:
             if self.rect.x > 0:
                 self.rect.x -= self.move_x
                 if pygame.sprite.spritecollide(self, platformGroup, False):
                     self.rect.x += self.move_x
+                    self.rect.y -= self.move_y + 1
                 elif pygame.sprite.spritecollide(self, rampGroupU, False):
                     self.rect.y -= self.move_y - 2
                     self.rect.x += self.move_x - 2
@@ -45,23 +55,32 @@ class Player(Sprite):
                 else:
                     self.rect.x -= self.move_x
 
+
+                """
+                elif pygame.sprite.spritecollide(self, coinGroup, False):
+                    self.totalCoin = self.totalCoin + 1
+                    print(self.totalCoin)
+                """
+
+
         if self.move_right:
             if self.rect.x < self.screenwidth - 32:
                 self.rect.x += self.move_x
                 if pygame.sprite.spritecollide(self, platformGroup, False):
-                    self.rect.x += self.move_x
+                    self.rect.x -= self.move_x
+                    self.rect.y -= self.move_y + 1
                 elif pygame.sprite.spritecollide(self, rampGroupU, False):
                     self.rect.y -= self.move_y
                     self.rect.x += self.move_x - 2
                     if pygame.sprite.spritecollide(self, platformGroup, False):
-                        self.rect.y -= self.move_y + 3
+                        self.rect.x -= self.move_x
                 elif pygame.sprite.spritecollide(self, rampGroupU, False):
                     self.rect.y -= self.move_y - 2
                     self.rect.x += self.move_x - 2
                 else:
                     self.rect.x += self.move_x
         if self.move_down:
-            if self.rect.y < 565:
+            if self.rect.y < 473:
                 self.rect.y += self.move_y
                 if pygame.sprite.spritecollide(self, stairGroup, False):
                     self.rect.y += self.move_y
@@ -94,6 +113,20 @@ class Player(Sprite):
             if self.vel_y < -(self.move_y * 2):
                 self.jumping = False
                 self.vel_y = (self.move_y * 2)
+
+        """
+        if not pygame.sprite.spritecollide(self, coinGroup, False):
+            screen.blit(self.coinImage, (300, 500))
+            #coinGroup.draw(screen)
+        """
+
+        for c in self.coins:
+            screen.blit(self.coinImage, (c[0], c[1]))
+
+        for c in self.coins:
+            if c.colliderect(self.rect.x, self.rect.y, self.rect.w, self.rect.h):
+                print("done")
+                self.coins.remove(c)
 
     def move(self, event):
         if event.type == pygame.KEYDOWN:
