@@ -127,6 +127,8 @@ class Player(Sprite):
             if c.colliderect(self.rect.x, self.rect.y, self.rect.w, self.rect.h):
                 print("done")
                 self.coins.remove(c)
+                self.totalCoin = self.totalCoin + 1
+                print(self.totalCoin)
 
     def move(self, event):
         if event.type == pygame.KEYDOWN:
