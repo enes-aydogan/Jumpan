@@ -35,11 +35,22 @@ class Player(Sprite):
         self.gravity_force = 5
         self.totalCoin = 0
         self.coins = [
-            pygame.Rect(40, 85, 32, 32)
+            pygame.Rect(40, 85, 32, 32),
+            pygame.Rect(40, 175, 32, 32),
+            pygame.Rect(40, 500, 32, 32),
+            pygame.Rect(315, 450, 32, 32),
+            pygame.Rect(450, 450, 32, 32),
+            pygame.Rect(750, 500, 32, 32),
+            pygame.Rect(725, 175, 32, 32),
+            pygame.Rect(725, 85, 32, 32),
+            pygame.Rect(425, 74, 32, 32),
+            pygame.Rect(340, 74, 32, 32),
+            pygame.Rect(200, 275, 32, 32),
+            pygame.Rect(585, 275, 32, 32)
         ]
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
 
-    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, coinGroup, screen):
+    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen):
         if self.move_left:
             if self.rect.x > 0:
                 self.rect.x -= self.move_x
