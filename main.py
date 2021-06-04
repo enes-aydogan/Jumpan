@@ -38,6 +38,7 @@ allSprites = pygame.sprite.Group()
 player = Player()
 world = World()
 bullet = Bullet()
+allSprites.add(bullet)
 # rect_list = world.platform_rect()
 
 # Clock to limit speed
@@ -206,7 +207,8 @@ while run:
         player.move(event)
         player.gravity(platformGroup, rampGroupU, rampGroupD)
         player.draw(screen)
-        bullet.bullet(screen, white)
+        allSprites.draw(screen)
+        #bullet.bullet(screen, white)
     pygame.display.flip()
 pygame.quit()
 quit()
