@@ -3,7 +3,7 @@ import pygame
 from player import Player
 from world import World
 import platformPiece
-
+from bullet import Bullet
 print(platformPiece.__file__)
 
 black = (0, 0, 0)
@@ -37,6 +37,7 @@ allSprites = pygame.sprite.Group()
 # Assignment
 player = Player()
 world = World()
+bullet = Bullet()
 # rect_list = world.platform_rect()
 
 # Clock to limit speed
@@ -195,6 +196,8 @@ while run:
     if initial_screen:
         initial_Screen()
     else:
+
+
         platformGroup.draw(screen)
         rampGroupU.draw(screen)
         rampGroupD.draw(screen)
@@ -203,7 +206,7 @@ while run:
         player.move(event)
         player.gravity(platformGroup, rampGroupU, rampGroupD)
         player.draw(screen)
-
+        bullet.bullet(screen, white)
     pygame.display.flip()
 pygame.quit()
 quit()
