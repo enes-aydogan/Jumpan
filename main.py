@@ -197,8 +197,6 @@ while run:
     if initial_screen:
         initial_Screen()
     else:
-
-
         platformGroup.draw(screen)
         rampGroupU.draw(screen)
         rampGroupD.draw(screen)
@@ -208,7 +206,7 @@ while run:
         player.gravity(platformGroup, rampGroupU, rampGroupD)
         player.draw(screen)
         allSprites.draw(screen)
-        #bullet.bullet(screen, white)
+        bullet.bullet(player.rect.x)
     pygame.display.flip()
 pygame.quit()
 quit()

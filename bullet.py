@@ -12,8 +12,13 @@ class Bullet(Sprite):
         self.rect.y = 20
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
+        self.movex = 4
+        self.movey = 4
 
-    #def bullet(self, screen, white):
-        #pygame.Rect()
-        #bullet = pygame.Rect(screen, white, pygame.Rect(30, 30, 3, 2))
-        #pygame.draw(bullet)
+    def bullet(self, playerX):
+        if self.rect.x < 802:
+            self.rect.x += self.movex
+            if self.rect.x == playerX:
+                print("done")
+                self.rect.x -= self.movey
+                self.rect.y += self.movey
