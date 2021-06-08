@@ -11,10 +11,8 @@ class Player(Sprite):
         self.image_move_right = pygame.image.load("images/jumpman/jumpman_move_right.gif")
         self.image_jump_left = pygame.image.load("images/jumpman/jumpman_run_left.gif")
         self.image_jump_right = pygame.image.load("images/jumpman/jumpman_run_right.gif")
+        self.image_stairs = pygame.image.load("images/jumpman/jumpman_stairs.gif")
         self.coinImage = pygame.image.load("images/platform/point.gif")
-
-        #        self.image = pygame.transform.scale(self.image, (int(self.image.get_width() * self.scale),
-        #                                                         int(self.image.get_height() * self.scale)))
         self.rect = self.image.get_rect()
         self.rect.x = 160
         self.rect.y = 405
@@ -66,13 +64,11 @@ class Player(Sprite):
                 else:
                     self.rect.x -= self.move_x
 
-
                 """
                 elif pygame.sprite.spritecollide(self, coinGroup, False):
                     self.totalCoin = self.totalCoin + 1
                     print(self.totalCoin)
                 """
-
 
         if self.move_right:
             if self.rect.x < self.screenwidth - 32:
@@ -95,6 +91,7 @@ class Player(Sprite):
                 self.rect.y += self.move_y
                 if pygame.sprite.spritecollide(self, stairGroup, False):
                     self.rect.y += self.move_y
+                    self.direction = 3
                 else:
                     if pygame.sprite.spritecollide(self, platformGroup, False):
                         self.rect.y -= self.move_y
@@ -110,6 +107,7 @@ class Player(Sprite):
                 self.rect.y -= (self.move_y + 1)
                 if pygame.sprite.spritecollide(self, stairGroup, False):
                     self.rect.y -= (self.move_y + 1)
+                    self.direction = 3
                 else:
                     if pygame.sprite.spritecollide(self, platformGroup, False):
                         self.rect.y += self.move_y
@@ -120,10 +118,10 @@ class Player(Sprite):
         if self.jumping:
             self.direction = 2
             self.rect.y -= self.vel_y
-            self.vel_y -= 1
-            if self.vel_y < -(self.move_y * 2):
+            self.vel_y -= 0.75
+            if self.vel_y <= -self.move_y:
+                self.vel_y = 10
                 self.jumping = False
-                self.vel_y = (self.move_y * 2)
 
         """
         if not pygame.sprite.spritecollide(self, coinGroup, False):
@@ -192,3 +190,5 @@ class Player(Sprite):
                 screen.blit(self.image_jump_left, self.rect)
             if self.move_right:
                 screen.blit(self.image_jump_right, self.rect)
+        if self.direction == 3:
+            screen.blit(self.image_stairs, self.rect)
