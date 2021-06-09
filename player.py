@@ -48,7 +48,7 @@ class Player(Sprite):
         ]
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
 
-    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen):
+    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform):
         if self.move_left:
             if self.rect.x > 0:
                 self.rect.x -= self.move_x
@@ -89,7 +89,9 @@ class Player(Sprite):
         if self.move_down:
             if self.rect.y < 473:
                 self.rect.y += self.move_y
-                if pygame.sprite.spritecollide(self, stairGroup, False):
+                if pygame.sprite.spritecollide(self, bottomPlatform, False):
+                    self.rect.y -= self.move_y
+                elif pygame.sprite.spritecollide(self, stairGroup, False):
                     self.rect.y += self.move_y
                     self.direction = 3
                 else:
@@ -169,7 +171,7 @@ class Player(Sprite):
             self.move_up = False
             self.move_down = False
 
-    def gravity(self, platformGroup, rampGroupU, rampGroupD):
+    def gravity(self, platformGroup, rampGroupU, rampGroupD, bottomPlatform):
         self.rect.y += self.gravity_force
         if pygame.sprite.spritecollide(self, platformGroup, False):
             self.rect.y -= self.gravity_force
@@ -177,6 +179,9 @@ class Player(Sprite):
             self.rect.y -= self.gravity_force
         elif pygame.sprite.spritecollide(self, rampGroupD, False):
             self.rect.y -= self.gravity_force
+        elif pygame.sprite.spritecollide(self, bottomPlatform, False):
+            self.rect.y -= self.gravity_force
+
 
     def draw(self, screen):
         if self.direction == 0:
