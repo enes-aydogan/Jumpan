@@ -12,7 +12,6 @@ class Player(Sprite):
         self.image_jump_left = pygame.image.load("images/jumpman/jumpman_run_left.gif")
         self.image_jump_right = pygame.image.load("images/jumpman/jumpman_run_right.gif")
         self.image_stairs = pygame.image.load("images/jumpman/jumpman_stairs.gif")
-        self.coinImage = pygame.image.load("images/platform/point.gif")
         self.rect = self.image.get_rect()
         self.rect.x = 160
         self.rect.y = 405
@@ -31,30 +30,16 @@ class Player(Sprite):
         self.vel_x = 0
         self.vel_y = 10
         self.gravity_force = 5
-        self.totalCoin = 0
-        self.coins = [
-            pygame.Rect(40, 85, 32, 32),
-            pygame.Rect(40, 175, 32, 32),
-            pygame.Rect(40, 500, 32, 32),
-            pygame.Rect(315, 450, 32, 32),
-            pygame.Rect(450, 450, 32, 32),
-            pygame.Rect(750, 500, 32, 32),
-            pygame.Rect(725, 175, 32, 32),
-            pygame.Rect(725, 85, 32, 32),
-            pygame.Rect(425, 74, 32, 32),
-            pygame.Rect(340, 74, 32, 32),
-            pygame.Rect(200, 275, 32, 32),
-            pygame.Rect(585, 275, 32, 32)
-        ]
+        self.levelChange = False
+        self.level = 1
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
 
-    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform):
+    def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup):
         if self.move_left:
             if self.rect.x > 0:
                 self.rect.x -= self.move_x
                 if pygame.sprite.spritecollide(self, platformGroup, False):
                     self.rect.x += self.move_x
-                    self.rect.y -= self.move_y + 1
                 elif pygame.sprite.spritecollide(self, bottomPlatform, False):
                     self.rect.x += self.move_x
                     self.rect.y -= self.move_y + 1
@@ -67,21 +52,16 @@ class Player(Sprite):
                 else:
                     self.rect.x -= self.move_x
 
-                """
-                elif pygame.sprite.spritecollide(self, coinGroup, False):
-                    self.totalCoin = self.totalCoin + 1
-                    print(self.totalCoin)
-                """
+
 
         if self.move_right:
             if self.rect.x < self.screenwidth - 32:
                 self.rect.x += self.move_x
                 if pygame.sprite.spritecollide(self, platformGroup, False):
                     self.rect.x -= self.move_x
-                    self.rect.y -= self.move_y + 1
                 elif pygame.sprite.spritecollide(self, bottomPlatform, False):
                     self.rect.x -= self.move_x
-                    self.rect.y -= self.move_y + 1
+                    self.rect.y -= self.move_y
                 elif pygame.sprite.spritecollide(self, rampGroupU, False):
                     self.rect.y -= self.move_y
                     self.rect.x += self.move_x - 2
@@ -131,21 +111,11 @@ class Player(Sprite):
                 self.vel_y = 10
                 self.jumping = False
 
-        """
-        if not pygame.sprite.spritecollide(self, coinGroup, False):
-            screen.blit(self.coinImage, (300, 500))
-            #coinGroup.draw(screen)
-        """
-
-        for c in self.coins:
-            screen.blit(self.coinImage, (c[0], c[1]))
-
-        for c in self.coins:
-            if c.colliderect(self.rect.x, self.rect.y, self.rect.w, self.rect.h):
-                print("done")
-                self.coins.remove(c)
-                self.totalCoin = self.totalCoin + 1
-                print(self.totalCoin)
+        if pygame.sprite.spritecollide(self, coinGroup, True):
+            print(len(coinGroup))
+            if len(coinGroup) == 0:
+                self.levelChange = True
+                self.level += 1
 
     def move(self, event):
         if event.type == pygame.KEYDOWN:

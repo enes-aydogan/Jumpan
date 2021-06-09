@@ -1,9 +1,10 @@
 import sys
 import pygame
 from player import Player
-from world import World
 import platformPiece
 from bullet import Bullet
+from levels import Levels
+from world import World
 print(platformPiece.__file__)
 
 black = (0, 0, 0)
@@ -36,8 +37,9 @@ allSprites = pygame.sprite.Group()
 
 # Assignment
 player = Player()
-world = World()
 bullet = Bullet()
+levels = Levels()
+world = World()
 allSprites.add(bullet)
 # rect_list = world.platform_rect()
 
@@ -55,117 +57,7 @@ rampGroupD = pygame.sprite.Group()
 coinGroup = pygame.sprite.Group()
 bottomPlatform = pygame.sprite.Group()
 
-def platform(pGroup, sGroup, rGroupU, rGroupD ,bottomPlatform):
-    ground = pygame.image.load("images/platform/newplatform.png")
-    ground = pygame.transform.scale(ground, (int(ground.get_width() * 0.5), int(ground.get_height() * 0.5)))
-    stair = pygame.image.load("images/platform/stair.gif")
-    ivy = pygame.image.load("images/platform/ivy.gif")
-    coin = pygame.image.load("images/platform/point.gif")
 
-    # Main ground
-    world.platformer(ground, x_pos=40, y_pos=515, loopControl=72, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=screenwidth / 2 - 50, y_pos=503, loopControl=7, axs=True, group=pGroup)
-    # Left first ground
-    world.platformer(ground, x_pos=45, y_pos=440, loopControl=11, axs=True, group=pGroup)
-    # Right first ground
-    world.platformer(ground, x_pos=636, y_pos=440, loopControl=11, axs=True, group=pGroup)
-    # Left first stair
-    world.platformer(stair, x_pos=100, y_pos=423, loopControl=5, axs=False, group=sGroup)
-    # Right first stair
-    world.platformer(stair, x_pos=680, y_pos=423, loopControl=5, axs=False, group=sGroup)
-    # First left-main floor
-    world.platformer(ground, x_pos=162, y_pos=436, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=179, y_pos=432, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=196, y_pos=428, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=213, y_pos=424, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=230, y_pos=420, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=247, y_pos=416, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=264, y_pos=412, loopControl=1, axs=True, group=rGroupU)
-    # First main floor
-    world.platformer(ground, x_pos=281, y_pos=408, loopControl=23, axs=True, group=bottomPlatform)
-    # First right-main floor
-    world.platformer(ground, x_pos=517, y_pos=412, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=534, y_pos=416, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=551, y_pos=420, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=568, y_pos=424, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=585, y_pos=428, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=602, y_pos=432, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=619, y_pos=436, loopControl=1, axs=True, group=rGroupD)
-    # Second left-ground floor
-    world.platformer(ground, x_pos=40, y_pos=315, loopControl=4, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=86, y_pos=315, loopControl=5, axs=True, group=bottomPlatform)
-
-    # Third left-ground floor
-    world.platformer(ground, x_pos=40, y_pos=215, loopControl=9, axs=True, group=pGroup)
-    # Fourth left-ground floor
-    world.platformer(ground, x_pos=40, y_pos=100, loopControl=9, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=137, y_pos=104, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=154, y_pos=108, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=171, y_pos=104, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=188, y_pos=100, loopControl=11, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=305, y_pos=96, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=322, y_pos=92, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=339, y_pos=88, loopControl=1, axs=True, group=rGroupU)
-    # Fourth right-ground floor
-    world.platformer(ground, x_pos=646, y_pos=100, loopControl=9, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=629, y_pos=104, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=612, y_pos=108, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=595, y_pos=104, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=478, y_pos=100, loopControl=11, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=461, y_pos=96, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=444, y_pos=92, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=427, y_pos=88, loopControl=1, axs=True, group=rGroupD)
-    # Right third-ground floor
-    world.platformer(ground, x_pos=656, y_pos=315, loopControl=9, axs=True, group=bottomPlatform)
-    # Right second-ground floor
-    world.platformer(ground, x_pos=656, y_pos=215, loopControl=9, axs=True, group=pGroup)
-    # Third main-ground floor
-    world.platformer(ground, x_pos=281, y_pos=315, loopControl=23, axs=True, group=bottomPlatform)
-    # Third left-piece ground
-    world.platformer(ground, x_pos=194 , y_pos=315, loopControl=3, axs=True, group=pGroup)
-    # Third right-piece ground
-    world.platformer(ground, x_pos=568 , y_pos=315, loopControl=3, axs=True, group=pGroup)
-    # Third main floor
-    world.platformer(ground, x_pos=205 , y_pos= 200, loopControl=7, axs=True, group=bottomPlatform)
-    world.platformer(ground, x_pos=281 , y_pos=204, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=298 , y_pos=208, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=315 , y_pos=212, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=332 , y_pos=216, loopControl=12, axs=True, group=pGroup)
-    world.platformer(ground, x_pos=459, y_pos=212, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=476, y_pos=208, loopControl=1, axs=True, group=rGroupU)
-    world.platformer(ground, x_pos=493, y_pos=204, loopControl=1, axs=True, group=rGroupD)
-    world.platformer(ground, x_pos=510, y_pos=200, loopControl=7, axs=True, group=bottomPlatform)
-    # First main ground-stair
-    world.platformer(stair, x_pos=306, y_pos=301, loopControl=6, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=477, y_pos=301, loopControl=6, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=390, y_pos=208, loopControl=6, axs=False, group=sGroup)
-    # Left Last stair
-    world.platformer(stair, x_pos=95, y_pos=88, loopControl=14, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=230, y_pos=93, loopControl=6, axs=False, group=sGroup)
-    # Right last stair
-    world.platformer(stair, x_pos=680, y_pos=88, loopControl=14, axs=False, group=sGroup)
-    world.platformer(stair, x_pos=540, y_pos=93, loopControl=6, axs=False, group=sGroup)
-    # Left IVY
-    world.platformer(ivy, x_pos=202, y_pos=328, loopControl=2, axs=False, group=sGroup)
-    # Rigth IVY
-    world.platformer(ivy, x_pos=570, y_pos=328, loopControl=2, axs=False, group=sGroup)
-    # Coins
-    """
-    world.platformer(coin, x_pos=40, y_pos=85, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=40, y_pos=175, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=40, y_pos=500, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=315, y_pos=450, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=450, y_pos=450, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=750, y_pos=500, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=725, y_pos=175, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=725, y_pos=85, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=425, y_pos=74, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=340, y_pos=74, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=200, y_pos=275, loopControl=1, axs=False, group=coinGroup)
-    world.platformer(coin, x_pos=585, y_pos=275, loopControl=1, axs=False, group=coinGroup)
-    """
-
-platform(platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform)
 
 
 def initial_Screen():
@@ -181,6 +73,24 @@ def initial_Screen():
     authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
     screen.blit(author, authorPos)
 
+def resetLevel():
+    global platformGroup
+    global stairGroup
+    global rampGroupU
+    global rampGroupD
+    global coinGroup
+    global bottomPlatform
+
+    platformGroup = pygame.sprite.Group()
+    stairGroup = pygame.sprite.Group()
+    rampGroupU = pygame.sprite.Group()
+    rampGroupD = pygame.sprite.Group()
+    coinGroup = pygame.sprite.Group()
+    bottomPlatform = pygame.sprite.Group()
+
+
+levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+gameFinished = False
 
 # Main program loop
 while run:
@@ -200,18 +110,35 @@ while run:
     if initial_screen:
         initial_Screen()
     else:
-        platformGroup.draw(screen)
-        rampGroupU.draw(screen)
-        rampGroupD.draw(screen)
-        bottomPlatform.draw(screen)
-        stairGroup.draw(screen)
+        if not gameFinished:
+            platformGroup.draw(screen)
+            rampGroupU.draw(screen)
+            rampGroupD.draw(screen)
+            bottomPlatform.draw(screen)
+            stairGroup.draw(screen)
+            allSprites.draw(screen)
+            player.draw(screen)
+            coinGroup.draw(screen)
+            player.move(event)
+            player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup)
+            player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
+            bullet.bullet(player.rect.x, player.rect.y)
+            #levels.level1coin(screen, player.rect.x, player.rect.y, player.rect.w, player.rect.h)
+            if player.levelChange:
+                resetLevel()
+                if player.level == 2:
+                    levels.level2(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                if player.level == 3:
+                    levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                else:
+                    gameFinished = True
 
-        player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform)
-        player.move(event)
-        player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
-        player.draw(screen)
-        allSprites.draw(screen)
-        bullet.bullet(player.rect.x, player.rect.y)
+                player.levelChange = False
+
+        else:
+            pass
+            # Finish Screen
+
     pygame.display.flip()
 pygame.quit()
 quit()
