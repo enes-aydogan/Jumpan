@@ -272,6 +272,21 @@ class Levels():
         world.platformer(self.stair, x_pos=45, y_pos=83, loopControl=6, axs=False, group=stairGroup)
         world.platformer(self.stair, x_pos=725, y_pos=83, loopControl=6, axs=False, group=stairGroup)
         world.platformer(self.stair, x_pos=388, y_pos=50, loopControl=9, axs=False, group=stairGroup)
+        # level-3 coins
+        coinCoordinates = [
+            [40, 500],
+            [750, 500],
+            [137, 245],
+            [657, 245],
+            [270, 40],
+            [510, 40],
+            [510, 375],
+            [270, 375],
+
+        ]
+
+        self.createCoin(coinGroup, coinCoordinates)
+
 
     def createCoin(self, coinGroup, coinCoordinates):
         for rect in coinCoordinates:
