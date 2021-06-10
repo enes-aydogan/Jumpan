@@ -52,8 +52,6 @@ class Player(Sprite):
                 else:
                     self.rect.x -= self.move_x
 
-
-
         if self.move_right:
             if self.rect.x < self.screenwidth - 32:
                 self.rect.x += self.move_x
@@ -157,7 +155,6 @@ class Player(Sprite):
             self.rect.y -= self.gravity_force
         elif pygame.sprite.spritecollide(self, bottomPlatform, False):
             self.rect.y -= self.gravity_force
-
 
     def draw(self, screen):
         if self.direction == 0:

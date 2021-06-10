@@ -1,18 +1,19 @@
 import pygame
 from coin import Coin
 
+
 class Levels():
     def __init__(self):
         self.coinImage = pygame.image.load("images/platform/point.gif")
         self.ground = pygame.image.load("images/platform/newplatform.png")
-        self.ground = pygame.transform.scale(self.ground, (int(self.ground.get_width() * 0.5), int(self.ground.get_height() * 0.5)))
+        self.ground = pygame.transform.scale(self.ground,
+                                             (int(self.ground.get_width() * 0.5), int(self.ground.get_height() * 0.5)))
         self.stair = pygame.image.load("images/platform/stair.gif")
         self.ivy = pygame.image.load("images/platform/ivy.gif")
 
         self.totalCoin = 0
 
     def level1(self, world, pGroup, sGroup, rGroupU, rGroupD, bottomPlatform, coinGroup):
-        
         # Main ground
         world.platformer(self.ground, x_pos=40, y_pos=515, loopControl=72, axs=True, group=pGroup)
         world.platformer(self.ground, x_pos=800 / 2 - 50, y_pos=503, loopControl=7, axs=True, group=pGroup)
@@ -102,7 +103,7 @@ class Levels():
         world.platformer(self.stair, x_pos=540, y_pos=93, loopControl=6, axs=False, group=sGroup)
         # Left IVY
         world.platformer(self.ivy, x_pos=202, y_pos=328, loopControl=2, axs=False, group=sGroup)
-        # Rigth IVY
+        # Right IVY
         world.platformer(self.ivy, x_pos=570, y_pos=328, loopControl=2, axs=False, group=sGroup)
         # Coins
         coinCoordinates = [
@@ -122,15 +123,89 @@ class Levels():
 
         self.createCoin(coinGroup, coinCoordinates)
 
+    def level2(self, world, pGroup, sGroup, bottomPlatform, coinGroup):
+        # Left First Ground
+        world.platformer(self.ground, x_pos=122, y_pos=515, loopControl=15, axs=True, group=pGroup)
+        # Right First Ground
+        world.platformer(self.ground, x_pos=500, y_pos=515, loopControl=15, axs=True, group=pGroup)
+        # Left First Ground Stair: First
+        world.platformer(self.stair, x_pos=122, y_pos=423, loopControl=5, axs=False, group=sGroup)
+        # Left First Ground Stair: Second
+        world.platformer(self.stair, x_pos=246, y_pos=423, loopControl=5, axs=False, group=sGroup)
+        # Right First Ground Stair: First
+        world.platformer(self.stair, x_pos=500, y_pos=423, loopControl=5, axs=False, group=sGroup)
+        # Right First Ground Stair: Second
+        world.platformer(self.stair, x_pos=624, y_pos=423, loopControl=5, axs=False, group=sGroup)
+        # Left Second Ground: First
+        world.platformer(self.ground, x_pos=40, y_pos=438, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=70, y_pos=438, loopControl=7, axs=True, group=pGroup)
+        # Left Second Ground: Second
+        world.platformer(self.ground, x_pos=323, y_pos=438, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=253, y_pos=438, loopControl=7, axs=True, group=pGroup)
+        # Right Second Ground: First
+        world.platformer(self.ground, x_pos=426, y_pos=438, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=456, y_pos=438, loopControl=7, axs=True, group=pGroup)
+        # Right Second Ground: Second
+        world.platformer(self.ground, x_pos=700, y_pos=438, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=630, y_pos=438, loopControl=7, axs=True, group=pGroup)
+        # Left Second Ground Stair: First
+        world.platformer(self.stair, x_pos=40, y_pos=346, loopControl=5, axs=False, group=sGroup)
+        # Left Second Ground Stair: Second
+        world.platformer(self.stair, x_pos=327, y_pos=286, loopControl=9, axs=False, group=sGroup)
+        # Right Second Ground Stair: First
+        world.platformer(self.stair, x_pos=426, y_pos=286, loopControl=9, axs=False, group=sGroup)
+        # Right Second Ground Stair: Second
+        world.platformer(self.stair, x_pos=704, y_pos=346, loopControl=5, axs=False, group=sGroup)
+        # Left Third Ground
+        world.platformer(self.ground, x_pos=120, y_pos=361, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=40, y_pos=361, loopControl=8, axs=True, group=pGroup)
+        world.platformer(self.ground, x_pos=150, y_pos=361, loopControl=12, axs=True, group=pGroup)
+        # Right Third Ground
+        world.platformer(self.ground, x_pos=620, y_pos=361, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=500, y_pos=361, loopControl=12, axs=True, group=pGroup)
+        world.platformer(self.ground, x_pos=650, y_pos=361, loopControl=8, axs=True, group=pGroup)
+        # Left Third Ground Stair
+        world.platformer(self.stair, x_pos=122, y_pos=209, loopControl=9, axs=False, group=sGroup)
+        # Right Third Ground Stair
+        world.platformer(self.stair, x_pos=624, y_pos=209, loopControl=9, axs=False, group=sGroup)
+        # Left Fourth Ground
+        world.platformer(self.ground, x_pos=126, y_pos=298, loopControl=22, axs=True, group=pGroup)
+        # Right Fourth Ground
+        world.platformer(self.ground, x_pos=426, y_pos=298, loopControl=22, axs=True, group=pGroup)
+        # Left Fifth Ground
+        world.platformer(self.ground, x_pos=240, y_pos=222, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=40, y_pos=222, loopControl=20, axs=True, group=pGroup)
+        world.platformer(self.ground, x_pos=270, y_pos=222, loopControl=5, axs=True, group=pGroup)
+        # Right Fifth Ground
+        world.platformer(self.ground, x_pos=500, y_pos=222, loopControl=3, axs=True, group=bottomPlatform)
+        world.platformer(self.ground, x_pos=460, y_pos=222, loopControl=4, axs=True, group=pGroup)
+        world.platformer(self.ground, x_pos=530, y_pos=222, loopControl=21, axs=True, group=pGroup)
+        # Left Fifth Ground Stair
+        world.platformer(self.stair, x_pos=246, y_pos=130, loopControl=5, axs=False, group=sGroup)
+        # Right Fifth Ground Stair
+        world.platformer(self.stair, x_pos=500, y_pos=130, loopControl=5, axs=False, group=sGroup)
+        # Sixth Ground
+        world.platformer(self.ground, x_pos=246, y_pos=144, loopControl=28, axs=True, group=pGroup)
+        # Level-2 Coins
+        coinCoordinates = [
+            [340, 125], [425, 125],
 
-    def createCoin(self, coinGroup, coinCoordinates):
-        for rect in coinCoordinates:
-            coinGroup.add(Coin(rect[0], rect[1]))
+            [310, 205], [460, 205], [40, 205], [725, 205],
 
-    def level2(self):
-        pass
+            [200, 280], [565, 280],
 
+            [200, 345], [565, 345],
+
+            [295, 420], [470, 420],
+
+            [170, 500], [570, 500]
+        ]
+
+        self.createCoin(coinGroup, coinCoordinates)
 
     def level3(self):
         pass
 
+    def createCoin(self, coinGroup, coinCoordinates):
+        for rect in coinCoordinates:
+            coinGroup.add(Coin(rect[0], rect[1]))

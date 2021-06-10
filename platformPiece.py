@@ -1,6 +1,7 @@
 import pygame
 from pygame.sprite import Sprite
 
+
 class Platform(Sprite):
     def __init__(self, image, x, y):
         Sprite.__init__(self)
@@ -10,4 +11,3 @@ class Platform(Sprite):
         self.rect.y = y
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
-

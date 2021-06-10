@@ -15,7 +15,6 @@ class Bullet(Sprite):
         self.movex = 2
         self.movey = 2
 
-
     def bullet(self, playerX, playerY):
         if self.rect.x < 802:
             self.rect.x += self.movex

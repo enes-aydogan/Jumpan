@@ -2,6 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 from platformPiece import Platform
 
+
 class World:
     def __init__(self):
         pass

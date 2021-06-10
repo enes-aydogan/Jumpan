@@ -5,6 +5,7 @@ import platformPiece
 from bullet import Bullet
 from levels import Levels
 from world import World
+
 print(platformPiece.__file__)
 
 black = (0, 0, 0)
@@ -22,7 +23,7 @@ screen = pygame.display.set_mode((screenwidth, screenheight))
 pygame.display.set_caption('Jumpman V1.0')
 
 # mouse disappear
-#pygame.mouse.set_visible(0)
+# pygame.mouse.set_visible(0)
 
 # Font
 font = pygame.font.Font("font/RetroGaming.ttf", 20)
@@ -58,8 +59,6 @@ coinGroup = pygame.sprite.Group()
 bottomPlatform = pygame.sprite.Group()
 
 
-
-
 def initial_Screen():
     title = titleFont.render("JUMPMAN", True, (77, 166, 48))
     titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
@@ -72,6 +71,7 @@ def initial_Screen():
     author = authorFont.render("Authors: Muhammet Enes Aydoğan and Hilmi Can Taşkıran", True, white)
     authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
     screen.blit(author, authorPos)
+
 
 def resetLevel():
     global platformGroup
@@ -123,12 +123,13 @@ while run:
             player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup)
             player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
             bullet.bullet(player.rect.x, player.rect.y)
-            #levels.level1coin(screen, player.rect.x, player.rect.y, player.rect.w, player.rect.h)
+            # levels.level1coin(screen, player.rect.x, player.rect.y, player.rect.w, player.rect.h)
             if player.levelChange:
                 resetLevel()
                 if player.level == 2:
-                    levels.level2(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
-                if player.level == 3:
+                    initial_Screen()
+                    levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                elif player.level == 3:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                 else:
                     gameFinished = True
