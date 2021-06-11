@@ -76,9 +76,17 @@ def initial_Screen():
     screen.blit(author, authorPos)
 
 def game_finished_screen():
-    startMessage = font.render("Game Over", True, white)
-    startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
-    screen.blit(startMessage, startMessagePos)
+    gameOver = titleFont.render("Game Over", True, white)
+    gameOverPos = gameOver.get_rect(centerx=background.get_width() / 2, centery=250)
+    screen.blit(gameOver, gameOverPos)
+
+    point = font.render("Point: " + str(player.point), True, white)
+    pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
+    screen.blit(point, pointPos)
+
+    press = font.render("Press R to restart", True, white)
+    pressPos = press.get_rect(centerx=background.get_width() / 2, centery=500)
+    screen.blit(press, pressPos)
 
 
 def resetLevel():
@@ -99,6 +107,7 @@ def resetLevel():
 
 
 levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+print("asd")
 gameFinished = False
 delay = 1
 # Main program loop
@@ -172,8 +181,18 @@ while run:
 
                 player.levelChange = False
 
-        else:
+        if gameFinished:
             game_finished_screen()
+            resetLevel()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    allSprites.empty()
+                    player = Player()
+                    bullet = Bullet()
+                    allSprites.add(bullet)
+                    allSprites.add(player)
+                    gameFinished = False
 
     pygame.display.flip()
 pygame.quit()
