@@ -12,8 +12,8 @@ class Bullet(Sprite):
         self.rect.y = 20
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
-        self.movex = 2
-        self.movey = 2
+        self.movex = 4
+        self.movey = 4
         self.moveOnlyY = False
         self.list = []
 

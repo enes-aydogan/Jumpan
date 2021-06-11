@@ -102,9 +102,9 @@ class Levels():
         world.platformer(self.stair, x_pos=680, y_pos=88, loopControl=14, axs=False, group=sGroup)
         world.platformer(self.stair, x_pos=540, y_pos=93, loopControl=6, axs=False, group=sGroup)
         # Left IVY
-        world.platformer(self.ivy, x_pos=202, y_pos=328, loopControl=2, axs=False, group=sGroup)
+        world.platformer(self.ivy, x_pos=202, y_pos=328, loopControl=3, axs=False, group=sGroup)
         # Right IVY
-        world.platformer(self.ivy, x_pos=570, y_pos=328, loopControl=2, axs=False, group=sGroup)
+        world.platformer(self.ivy, x_pos=570, y_pos=328, loopControl=3, axs=False, group=sGroup)
         # Coins
         coinCoordinates = [
             [40, 85],

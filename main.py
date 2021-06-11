@@ -166,7 +166,21 @@ while run:
             player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
             if not bullet.rect.colliderect(player.rect):
                 if bullet.rect.x < 802 and bullet.rect.y < 602:
-                    bullet.list.append(bullet.rect.x)
+                    bullet.rect.x += bullet.movex
+                    if bullet.rect.x - 16 == player.rect.x:
+                        bullet.moveOnlyY = True
+
+                    if bullet.moveOnlyY:
+                        bullet.rect.x -= bullet.movey
+                        bullet.rect.y += bullet.movey
+
+                    if bullet.rect.x == (bullet.rect.x - bullet.movey):
+                        bullet.moveOnlyY = False
+
+                elif bullet.rect.x > 801 or bullet.rect.y > 601:
+                    allSprites.empty()
+                    bullet = Bullet()
+                    allSprites.add(bullet)
                     bullet.rect.x += bullet.movex
                     if bullet.rect.x - 16 == player.rect.x:
                         bullet.moveOnlyY = True
