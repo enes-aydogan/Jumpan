@@ -8,15 +8,22 @@ class Player(Sprite):
     def __init__(self):
         self.scale = 1
         Sprite.__init__(self)
+        # images
         self.image = pygame.image.load("images/jumpman/jumpman.gif")
         self.image_move_left = pygame.image.load("images/jumpman/jumpman_move_left.gif")
         self.image_move_right = pygame.image.load("images/jumpman/jumpman_move_right.gif")
         self.image_jump_left = pygame.image.load("images/jumpman/jumpman_run_left.gif")
         self.image_jump_right = pygame.image.load("images/jumpman/jumpman_run_right.gif")
         self.image_stairs = pygame.image.load("images/jumpman/jumpman_stairs.gif")
+        # Sounds
+        self.sound_walk = pygame.mixer.Sound("sounds/walk.wav")
+        self.sound_jump = pygame.mixer.Sound("sounds/jump.wav")
+        self.sound_stair = pygame.mixer.Sound("sounds/stair.wav")
+        self.sound_dead = pygame.mixer.Sound("sounds/dead.wav")
+        self.sound_coin = pygame.mixer.Sound("sounds/coin.wav")
         self.rect = self.image.get_rect()
-        self.rect.x = 160
-        self.rect.y = 405
+        self.rect.x = 105
+        self.rect.y = 450
         self.rect.w = 32
         self.rect.h = 32
         self.screenheight = pygame.display.get_surface().get_height()
@@ -36,12 +43,7 @@ class Player(Sprite):
         self.level = 1
         self.point = 0
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
-        # Sounds
-        self.sound_walk = pygame.mixer.Sound("sounds/walk.wav")
-        self.sound_jump = pygame.mixer.Sound("sounds/jump.wav")
-        self.sound_stair = pygame.mixer.Sound("sounds/stair.wav")
-        self.sound_dead = pygame.mixer.Sound("sounds/dead.wav")
-        self.sound_coin = pygame.mixer.Sound("sounds/coin.wav")
+
 
     def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup):
         if self.move_left:

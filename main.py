@@ -3,6 +3,7 @@ import pygame
 from player import Player
 import platformPiece
 from bullet import Bullet
+from secondBullet import SecondBullet
 from levels import Levels
 from world import World
 
@@ -40,9 +41,11 @@ allSprites = pygame.sprite.Group()
 # Assignment
 player = Player()
 bullet = Bullet()
+secondBullet = SecondBullet()
 levels = Levels()
 world = World()
 allSprites.add(bullet)
+allSprites.add(secondBullet)
 # rect_list = world.platform_rect()
 
 # Clock to limit speed
@@ -123,6 +126,7 @@ levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPl
 print("asd")
 gameFinished = False
 gameWin = False
+alive = 5
 delay = 1
 # Main program loop
 while run:
@@ -153,6 +157,10 @@ while run:
             level = font.render("Level - " + str(player.level) + "/3", True, white)
             levelPos = level.get_rect(centerx=600, centery=575)
             screen.blit(level, levelPos)
+            isAlive = font.render("Health: " + str(alive), True, white)
+            isAlivePos = isAlive.get_rect(centerx=100, centery=550)
+            screen.blit(isAlive, isAlivePos)
+
             platformGroup.draw(screen)
             rampGroupU.draw(screen)
             rampGroupD.draw(screen)
@@ -164,6 +172,7 @@ while run:
             player.move(event)
             player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup)
             player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
+
             if not bullet.rect.colliderect(player.rect):
                 if bullet.rect.x < 802 and bullet.rect.y < 602:
                     bullet.rect.x += bullet.movex
@@ -172,13 +181,12 @@ while run:
 
                     if bullet.moveOnlyY:
                         bullet.rect.x -= bullet.movey
-                        bullet.rect.y += bullet.movey
+                        bullet.rect.y += bullet.movey + 3
 
                     if bullet.rect.x == (bullet.rect.x - bullet.movey):
                         bullet.moveOnlyY = False
 
                 elif bullet.rect.x > 801 or bullet.rect.y > 601:
-                    allSprites.empty()
                     bullet = Bullet()
                     allSprites.add(bullet)
                     bullet.rect.x += bullet.movex
@@ -191,8 +199,74 @@ while run:
 
                     if bullet.rect.x == (bullet.rect.x - bullet.movey):
                         bullet.moveOnlyY = False
+
+
             else:
-                gameFinished = True
+                alive -= 1
+                resetLevel()
+                if player.level == 1:
+                    levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                elif player.level == 2:
+                    levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                elif player.level == 3:
+                    levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+
+                allSprites.empty()
+                player = Player()
+                bullet = Bullet()
+                allSprites.add(bullet)
+                secondBullet = SecondBullet()
+                allSprites.add(secondBullet)
+                gameFinished = False
+                if alive == 0:
+                    gameFinished = True
+
+
+            if not secondBullet.rect.colliderect(player.rect):
+                if secondBullet.rect.x < 802 and secondBullet.rect.y < 602:
+                    secondBullet.rect.y += secondBullet.movey
+                    if secondBullet.rect.y - 15 == player.rect.y:
+                        secondBullet.moveOnlyY = True
+
+                    if secondBullet.moveOnlyY:
+                        secondBullet.rect.y -= secondBullet.movey
+                        secondBullet.rect.x += secondBullet.movex
+
+                    if secondBullet.rect.y == (secondBullet.rect.y - secondBullet.movey):
+                        secondBullet.moveOnlyY = False
+
+                elif secondBullet.rect.x > 801 or secondBullet.rect.y > 601:
+                    secondBullet = SecondBullet()
+                    allSprites.add(secondBullet)
+                    secondBullet.rect.x += secondBullet.movex
+                    if secondBullet.rect.x - 15 == player.rect.x:
+                        secondBullet.moveOnlyY = True
+
+                    if secondBullet.moveOnlyY:
+                        secondBullet.rect.x -= secondBullet.movey
+                        secondBullet.rect.y += secondBullet.movey + 3
+
+                    if secondBullet.rect.x == (secondBullet.rect.x - secondBullet.movey):
+                        secondBullet.moveOnlyY = False
+
+            else:
+                alive -= 1
+                resetLevel()
+                if player.level == 1:
+                    levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                elif player.level == 2:
+                    levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                elif player.level == 3:
+                    levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                allSprites.empty()
+                player = Player()
+                bullet = Bullet()
+                allSprites.add(bullet)
+                secondBullet = SecondBullet()
+                allSprites.add(secondBullet)
+                gameFinished = False
+                if alive == 0:
+                    gameFinished = True
 
             # levels.level1coin(screen, player.rect.x, player.rect.y, player.rect.w, player.rect.h)
             if player.levelChange:
@@ -201,12 +275,16 @@ while run:
                     allSprites.empty()
                     bullet = Bullet()
                     allSprites.add(bullet)
+                    secondBullet = SecondBullet()
+                    allSprites.add(secondBullet)
                     levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
                     pygame.time.delay(delay * 500)
                 elif player.level == 3:
                     allSprites.empty()
                     bullet = Bullet()
                     allSprites.add(bullet)
+                    secondBullet = SecondBullet()
+                    allSprites.add(secondBullet)
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                     pygame.time.delay(delay * 500)
                 elif player.level == 4:
@@ -225,6 +303,8 @@ while run:
                     allSprites.empty()
                     player = Player()
                     bullet = Bullet()
+                    secondBullet = SecondBullet()
+                    allSprites.add(secondBullet)
                     allSprites.add(bullet)
                     gameFinished = False
         if gameWin:
@@ -237,6 +317,8 @@ while run:
                     player = Player()
                     bullet = Bullet()
                     allSprites.add(bullet)
+                    secondBullet = SecondBullet()
+                    allSprites.add(secondBullet)
                     gameFinished = False
                     gameWin = False
     pygame.display.flip()
