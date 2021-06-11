@@ -34,6 +34,7 @@ class Player(Sprite):
         self.gravity_force = 5
         self.levelChange = False
         self.level = 1
+        self.point = 0
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
         # Sounds
         self.sound_walk = pygame.mixer.Sound("sounds/walk.wav")
@@ -119,6 +120,7 @@ class Player(Sprite):
 
         if pygame.sprite.spritecollide(self, coinGroup, True):
             self.sound_coin.play(0)
+            self.point += 100
             print(len(coinGroup))
             if len(coinGroup) == 0:
                 self.levelChange = True

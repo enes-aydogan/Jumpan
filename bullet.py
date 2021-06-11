@@ -14,13 +14,7 @@ class Bullet(Sprite):
         self.screenwidth = pygame.display.get_surface().get_width()
         self.movex = 2
         self.movey = 2
+        self.moveOnlyY = False
+        self.list = []
 
-    def bullet(self, playerX, playerY):
-        if self.rect.x < 802:
-            self.rect.x += self.movex
-            self.fireSound.play(0)
-            if self.rect.x - 16 == playerX:
-                self.fireSound.play(0)
-                print("done")
-                self.rect.x -= self.movey
-                self.rect.y += self.movey
+

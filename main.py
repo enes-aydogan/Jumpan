@@ -75,6 +75,12 @@ def initial_Screen():
     authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
     screen.blit(author, authorPos)
 
+def game_finished_screen():
+    startMessage = font.render("Game Over", True, white)
+    startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
+    screen.blit(startMessage, startMessagePos)
+
+
 def resetLevel():
     global platformGroup
     global stairGroup
@@ -91,9 +97,10 @@ def resetLevel():
     bottomPlatform = pygame.sprite.Group()
 
 
+
 levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
 gameFinished = False
-
+delay = 1
 # Main program loop
 while run:
     # Limit to 30 fps
@@ -108,6 +115,8 @@ while run:
             if event.key == pygame.K_ESCAPE:
                 run = False
             initial_screen = False
+
+
             if not initial_screen:
                 mainSound.stop()
 
@@ -115,6 +124,12 @@ while run:
         initial_Screen()
     else:
         if not gameFinished:
+            point = font.render("Point: " + str(player.point), True, white)
+            pointPos = point.get_rect(centerx=600, centery=550)
+            screen.blit(point, pointPos)
+            level = font.render("Level - " + str(player.level) + "/3", True, white)
+            levelPos = level.get_rect(centerx=600, centery=575)
+            screen.blit(level, levelPos)
             platformGroup.draw(screen)
             rampGroupU.draw(screen)
             rampGroupD.draw(screen)
@@ -126,23 +141,39 @@ while run:
             player.move(event)
             player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup)
             player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
-            bullet.bullet(player.rect.x, player.rect.y)
+
+            if not bullet.rect.colliderect(player.rect):
+                if bullet.rect.x < 802 and bullet.rect.y < 602:
+                    bullet.list.append(bullet.rect.x)
+                    bullet.rect.x += bullet.movex
+                    if bullet.rect.x - 16 == player.rect.x:
+                        bullet.moveOnlyY = True
+
+                    if bullet.moveOnlyY:
+                        bullet.rect.x -= bullet.movey
+                        bullet.rect.y += bullet.movey
+
+                    if bullet.rect.x == (bullet.rect.x - bullet.movey):
+                        bullet.moveOnlyY = False
+            else:
+                gameFinished = True
+
             # levels.level1coin(screen, player.rect.x, player.rect.y, player.rect.w, player.rect.h)
             if player.levelChange:
                 resetLevel()
                 if player.level == 2:
-                    initial_Screen()
                     levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                    pygame.time.delay(delay * 500)
                 elif player.level == 3:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    pygame.time.delay(delay * 500)
                 else:
                     gameFinished = True
 
                 player.levelChange = False
 
         else:
-            pass
-            # Finish Screen
+            game_finished_screen()
 
     pygame.display.flip()
 pygame.quit()
