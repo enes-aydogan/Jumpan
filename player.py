@@ -1,6 +1,8 @@
 import pygame
 from pygame.sprite import Sprite
 
+pygame.mixer.init()
+
 
 class Player(Sprite):
     def __init__(self):
@@ -28,11 +30,17 @@ class Player(Sprite):
         self.move_x = 5
         self.move_y = 5
         self.vel_x = 0
-        self.vel_y = 10
+        self.vel_y = 11
         self.gravity_force = 5
         self.levelChange = False
         self.level = 1
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
+        # Sounds
+        self.sound_walk = pygame.mixer.Sound("sounds/walk.wav")
+        self.sound_jump = pygame.mixer.Sound("sounds/jump.wav")
+        self.sound_stair = pygame.mixer.Sound("sounds/stair.wav")
+        self.sound_dead = pygame.mixer.Sound("sounds/dead.wav")
+        self.sound_coin = pygame.mixer.Sound("sounds/coin.wav")
 
     def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup):
         if self.move_left:
@@ -103,13 +111,14 @@ class Player(Sprite):
                         self.rect.y += self.move_y
         if self.jumping:
             self.direction = 2
-            self.rect.y -= self.vel_y
-            self.vel_y -= 0.75
-            if self.vel_y <= -self.move_y:
-                self.vel_y = 10
+            self.rect.y -= (self.vel_y * 2) * 0.5
+            self.vel_y -= 1
+            if self.vel_y <= -(self.move_y - 2):
+                self.vel_y = 11
                 self.jumping = False
 
         if pygame.sprite.spritecollide(self, coinGroup, True):
+            self.sound_coin.play(0)
             print(len(coinGroup))
             if len(coinGroup) == 0:
                 self.levelChange = True
@@ -128,8 +137,10 @@ class Player(Sprite):
             if not self.jumping and event.key == pygame.K_LSHIFT:
                 if self.move_left:
                     self.jumping = True
+                    self.sound_jump.play(0)
                 if self.move_right:
                     self.jumping = True
+                    self.sound_jump.play(0)
 
             if event.key == pygame.K_DOWN:
                 self.move_down = True

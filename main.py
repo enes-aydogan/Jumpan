@@ -13,6 +13,7 @@ white = (255, 255, 255)
 
 # Initialize pygame
 pygame.init()
+pygame.mixer.init()
 
 # Create screen
 screenwidth = 800
@@ -58,6 +59,8 @@ rampGroupD = pygame.sprite.Group()
 coinGroup = pygame.sprite.Group()
 bottomPlatform = pygame.sprite.Group()
 
+mainSound = pygame.mixer.Sound("sounds/main.wav")
+mainSound.play(0)
 
 def initial_Screen():
     title = titleFont.render("JUMPMAN", True, (77, 166, 48))
@@ -71,7 +74,6 @@ def initial_Screen():
     author = authorFont.render("Authors: Muhammet Enes Aydoğan and Hilmi Can Taşkıran", True, white)
     authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
     screen.blit(author, authorPos)
-
 
 def resetLevel():
     global platformGroup
@@ -106,6 +108,8 @@ while run:
             if event.key == pygame.K_ESCAPE:
                 run = False
             initial_screen = False
+            if not initial_screen:
+                mainSound.stop()
 
     if initial_screen:
         initial_Screen()
