@@ -65,6 +65,7 @@ bottomPlatform = pygame.sprite.Group()
 mainSound = pygame.mixer.Sound("sounds/main.wav")
 mainSound.play(0)
 
+
 def initial_Screen():
     title = titleFont.render("JUMPMAN", True, (77, 166, 48))
     titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
@@ -78,6 +79,7 @@ def initial_Screen():
     authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
     screen.blit(author, authorPos)
 
+
 def game_finished_screen():
     gameOver = titleFont.render("Game Over", True, white)
     gameOverPos = gameOver.get_rect(centerx=background.get_width() / 2, centery=250)
@@ -90,6 +92,7 @@ def game_finished_screen():
     press = font.render("Press Enter to restart", True, white)
     pressPos = press.get_rect(centerx=background.get_width() / 2, centery=500)
     screen.blit(press, pressPos)
+
 
 def game_win_screen():
     gameWin = titleFont.render("Game Win", True, white)
@@ -121,9 +124,7 @@ def resetLevel():
     bottomPlatform = pygame.sprite.Group()
 
 
-
 levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
-print("asd")
 gameFinished = False
 gameWin = False
 alive = 5
@@ -143,7 +144,6 @@ while run:
                 run = False
             initial_screen = False
 
-
             if not initial_screen:
                 mainSound.stop()
 
@@ -154,7 +154,7 @@ while run:
             point = font.render("Point: " + str(player.point), True, white)
             pointPos = point.get_rect(centerx=600, centery=550)
             screen.blit(point, pointPos)
-            level = font.render("Level - " + str(player.level) + "/3", True, white)
+            level = font.render("Level: " + str(player.level) + "/3", True, white)
             levelPos = level.get_rect(centerx=600, centery=575)
             screen.blit(level, levelPos)
             isAlive = font.render("Health: " + str(alive), True, white)
@@ -220,7 +220,6 @@ while run:
                 gameFinished = False
                 if alive == 0:
                     gameFinished = True
-
 
             if not secondBullet.rect.colliderect(player.rect):
                 if secondBullet.rect.x < 802 and secondBullet.rect.y < 602:

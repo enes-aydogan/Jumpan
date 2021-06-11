@@ -16,5 +16,3 @@ class Bullet(Sprite):
         self.movey = 4
         self.moveOnlyY = False
         self.list = []
-
-

@@ -206,7 +206,7 @@ class Levels():
     def level3(self, world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup):
         # main ground
         ############  FIRST FLOOR  #############
-        world.platformer(self.ground, x_pos=40, y_pos=515, loopControl=72, axs=True, group=platformGroup)
+        world.platformer(self.ground, x_pos=40, y_pos=512, loopControl=72, axs=True, group=platformGroup)
         # first left floor
         world.platformer(self.ground, x_pos=45, y_pos=420, loopControl=5, axs=True, group=bottomPlatform)
         world.platformer(self.ground, x_pos=101, y_pos=424, loopControl=1, axs=True, group=rampGroupD)
@@ -220,8 +220,8 @@ class Levels():
         world.platformer(self.ground, x_pos=687, y_pos=424, loopControl=1, axs=True, group=rampGroupU)
         world.platformer(self.ground, x_pos=703, y_pos=420, loopControl=5, axs=True, group=bottomPlatform)
         # first floor stairs
-        world.platformer(self.stair, x_pos=172, y_pos=423, loopControl=5, axs=False, group=stairGroup)
-        world.platformer(self.stair, x_pos=606, y_pos=423, loopControl=5, axs=False, group=stairGroup)
+        world.platformer(self.stair, x_pos=172, y_pos=420, loopControl=5, axs=False, group=stairGroup)
+        world.platformer(self.stair, x_pos=606, y_pos=420, loopControl=5, axs=False, group=stairGroup)
         #############  SECOND FLOOR  ##############
         # second floor left to right
         world.platformer(self.ground, x_pos=45, y_pos=317, loopControl=7, axs=True, group=platformGroup)
@@ -286,7 +286,6 @@ class Levels():
         ]
 
         self.createCoin(coinGroup, coinCoordinates)
-
 
     def createCoin(self, coinGroup, coinCoordinates):
         for rect in coinCoordinates:

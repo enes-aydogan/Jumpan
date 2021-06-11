@@ -44,7 +44,6 @@ class Player(Sprite):
         self.point = 0
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
 
-
     def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup):
         if self.move_left:
             if self.rect.x > 0:
@@ -123,7 +122,6 @@ class Player(Sprite):
         if pygame.sprite.spritecollide(self, coinGroup, True):
             self.sound_coin.play(0)
             self.point += 100
-            print(len(coinGroup))
             if len(coinGroup) == 0:
                 self.levelChange = True
                 self.level += 1
@@ -169,6 +167,9 @@ class Player(Sprite):
         elif pygame.sprite.spritecollide(self, rampGroupD, False):
             self.rect.y -= self.gravity_force
         elif pygame.sprite.spritecollide(self, bottomPlatform, False):
+            self.rect.y -= self.gravity_force
+        # check collision with bottom floor
+        elif self.rect.y > 480:
             self.rect.y -= self.gravity_force
 
     def draw(self, screen):
