@@ -84,7 +84,20 @@ def game_finished_screen():
     pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
     screen.blit(point, pointPos)
 
-    press = font.render("Press R to restart", True, white)
+    press = font.render("Press Enter to restart", True, white)
+    pressPos = press.get_rect(centerx=background.get_width() / 2, centery=500)
+    screen.blit(press, pressPos)
+
+def game_win_screen():
+    gameWin = titleFont.render("Game Win", True, white)
+    gameWinPos = gameWin.get_rect(centerx=background.get_width() / 2, centery=250)
+    screen.blit(gameWin, gameWinPos)
+
+    point = font.render("Point: " + str(player.point), True, white)
+    pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
+    screen.blit(point, pointPos)
+
+    press = font.render("Press Enter to restart", True, white)
     pressPos = press.get_rect(centerx=background.get_width() / 2, centery=500)
     screen.blit(press, pressPos)
 
@@ -109,6 +122,7 @@ def resetLevel():
 levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
 print("asd")
 gameFinished = False
+gameWin = False
 delay = 1
 # Main program loop
 while run:
@@ -132,7 +146,7 @@ while run:
     if initial_screen:
         initial_Screen()
     else:
-        if not gameFinished:
+        if not (gameFinished or gameWin):
             point = font.render("Point: " + str(player.point), True, white)
             pointPos = point.get_rect(centerx=600, centery=550)
             screen.blit(point, pointPos)
@@ -150,7 +164,6 @@ while run:
             player.move(event)
             player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup)
             player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
-
             if not bullet.rect.colliderect(player.rect):
                 if bullet.rect.x < 802 and bullet.rect.y < 602:
                     bullet.list.append(bullet.rect.x)
@@ -171,11 +184,19 @@ while run:
             if player.levelChange:
                 resetLevel()
                 if player.level == 2:
+                    allSprites.empty()
+                    bullet = Bullet()
+                    allSprites.add(bullet)
                     levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
                     pygame.time.delay(delay * 500)
                 elif player.level == 3:
+                    allSprites.empty()
+                    bullet = Bullet()
+                    allSprites.add(bullet)
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                     pygame.time.delay(delay * 500)
+                elif player.level == 4:
+                    gameWin = True
                 else:
                     gameFinished = True
 
@@ -191,9 +212,19 @@ while run:
                     player = Player()
                     bullet = Bullet()
                     allSprites.add(bullet)
-                    allSprites.add(player)
                     gameFinished = False
-
+        if gameWin:
+            game_win_screen()
+            resetLevel()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    allSprites.empty()
+                    player = Player()
+                    bullet = Bullet()
+                    allSprites.add(bullet)
+                    gameFinished = False
+                    gameWin = False
     pygame.display.flip()
 pygame.quit()
 quit()
