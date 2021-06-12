@@ -30,7 +30,7 @@ pygame.display.set_caption('Jumpman V1.0')
 # Font
 font = pygame.font.Font("font/RetroGaming.ttf", 20)
 titleFont = pygame.font.Font("font/RetroGaming.ttf", 90)
-authorFont = pygame.font.Font(None, 18)
+authorFont = pygame.font.Font(None, 22)
 
 # Surface
 background = pygame.Surface(screen.get_size())
@@ -182,7 +182,7 @@ while run:
             if not bullet.rect.colliderect(player.rect):
                 if bullet.rect.x < 802 and bullet.rect.y < 602:
                     bullet.rect.x += bullet.movex
-                    if bullet.rect.x - 16 == player.rect.x:
+                    if bullet.rect.x - 15 == player.rect.x:
                         bullet.moveOnlyY = True
 
                     if bullet.moveOnlyY:
@@ -210,6 +210,7 @@ while run:
             else:
                 alive -= 1
                 resetLevel()
+                
                 if player.level == 1:
                     levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                 elif player.level == 2:
@@ -218,7 +219,8 @@ while run:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
 
                 allSprites.empty()
-                player = Player()
+                player.rect.x = 105
+                player.rect.y = 450
                 bullet = Bullet()
                 allSprites.add(bullet)
                 secondBullet = SecondBullet()
@@ -264,7 +266,8 @@ while run:
                 elif player.level == 3:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                 allSprites.empty()
-                player = Player()
+                player.rect.x = 105
+                player.rect.y = 450
                 bullet = Bullet()
                 allSprites.add(bullet)
                 secondBullet = SecondBullet()
