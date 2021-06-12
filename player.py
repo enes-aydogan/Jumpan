@@ -8,7 +8,7 @@ class Player(Sprite):
     def __init__(self):
         self.scale = 1
         Sprite.__init__(self)
-        # images
+        # Images
         self.image = pygame.image.load("images/jumpman/jumpman.gif")
         self.image_move_left = pygame.image.load("images/jumpman/jumpman_move_left.gif")
         self.image_move_right = pygame.image.load("images/jumpman/jumpman_move_right.gif")
@@ -21,6 +21,7 @@ class Player(Sprite):
         self.sound_stair = pygame.mixer.Sound("sounds/stair.wav")
         self.sound_dead = pygame.mixer.Sound("sounds/dead.wav")
         self.sound_coin = pygame.mixer.Sound("sounds/coin.wav")
+        # Rect of image
         self.rect = self.image.get_rect()
         self.rect.x = 105
         self.rect.y = 451
@@ -28,6 +29,7 @@ class Player(Sprite):
         self.rect.h = 32
         self.screenheight = pygame.display.get_surface().get_height()
         self.screenwidth = pygame.display.get_surface().get_width()
+        # Movement values
         self.move_left = False
         self.move_right = False
         self.move_down = False
@@ -42,9 +44,12 @@ class Player(Sprite):
         self.levelChange = False
         self.level = 1
         self.point = 0
+        # Player rect
         self.player_rect = pygame.Rect(self.rect.x, self.rect.y, self.rect.w, self.rect.h)
 
+    # Movement Functions
     def functions(self, platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup):
+        # Move Left
         if self.move_left:
             if self.rect.x > 0:
                 self.rect.x -= self.move_x
@@ -61,7 +66,7 @@ class Player(Sprite):
                     self.rect.x -= self.move_x - 2
                 else:
                     self.rect.x -= self.move_x
-
+        # Move Right
         if self.move_right:
             if self.rect.x < self.screenwidth - 32:
                 self.rect.x += self.move_x
@@ -80,6 +85,7 @@ class Player(Sprite):
                     self.rect.x += self.move_x - 2
                 else:
                     self.rect.x += self.move_x
+        # Move Right
         if self.move_down:
             if self.rect.y < 473:
                 self.rect.y += self.move_y
@@ -97,7 +103,7 @@ class Player(Sprite):
                         self.rect.y -= self.move_y
                     else:
                         self.rect.y -= self.move_y
-
+        # Move Up
         if self.move_up:
             if self.rect.y > 0:
                 self.rect.y -= (self.move_y + 1)
@@ -111,6 +117,7 @@ class Player(Sprite):
                         self.rect.y += self.move_y
                     else:
                         self.rect.y += self.move_y
+        # Jump
         if self.jumping:
             self.direction = 2
             self.rect.y -= (self.vel_y * 2) * 0.5
@@ -118,7 +125,7 @@ class Player(Sprite):
             if self.vel_y <= -(self.move_y - 2):
                 self.vel_y = 11
                 self.jumping = False
-
+        # Coin
         if pygame.sprite.spritecollide(self, coinGroup, True):
             self.sound_coin.play(0)
             self.point += 100
@@ -126,6 +133,7 @@ class Player(Sprite):
                 self.levelChange = True
                 self.level = 4
 
+    # Movement Keys
     def move(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -158,6 +166,7 @@ class Player(Sprite):
             self.move_up = False
             self.move_down = False
 
+    # Gravity
     def gravity(self, platformGroup, rampGroupU, rampGroupD, bottomPlatform):
         self.rect.y += self.gravity_force
         if pygame.sprite.spritecollide(self, platformGroup, False):
@@ -172,6 +181,7 @@ class Player(Sprite):
         elif self.rect.y > 480:
             self.rect.y -= self.gravity_force
 
+    # Draw animations
     def draw(self, screen):
         if self.direction == 0:
             screen.blit(self.image, self.rect)
