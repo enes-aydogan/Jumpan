@@ -241,7 +241,13 @@ while run:
             if not secondBullet.rect.colliderect(player.rect):
                 if secondBullet.rect.x < 802 and secondBullet.rect.y < 602:
                     secondBullet.rect.y += secondBullet.movey
-                    if secondBullet.rect.y - 15 == player.rect.y:
+                    if secondBullet.rect.y - 13 == player.rect.y:
+                        secondBullet.moveOnlyY = True
+                    if secondBullet.rect.y - 17 == player.rect.y:
+                        secondBullet.moveOnlyY = True
+                    if secondBullet.rect.y - 21 == player.rect.y:
+                        secondBullet.moveOnlyY = True
+                    if secondBullet.rect.y - 25 == player.rect.y:
                         secondBullet.moveOnlyY = True
 
                     if secondBullet.moveOnlyY:
