@@ -88,7 +88,7 @@ def game_finished_screen():
     gameOverPos = gameOver.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(gameOver, gameOverPos)
 
-    point = font.render("Point: " + str(player.point), True, white)
+    point = font.render("Point: " + str(game_point), True, white)
     pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
     screen.blit(point, pointPos)
 
@@ -102,7 +102,7 @@ def game_win_screen():
     gameWinPos = gameWin.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(gameWin, gameWinPos)
 
-    point = font.render("Point: " + str(player.point), True, white)
+    point = font.render("Point: " + str(game_point), True, white)
     pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
     screen.blit(point, pointPos)
 
@@ -209,8 +209,8 @@ while run:
 
             else:
                 alive -= 1
+                game_point = player.point
                 resetLevel()
-                
                 if player.level == 1:
                     levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                 elif player.level == 2:
@@ -219,8 +219,7 @@ while run:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
 
                 allSprites.empty()
-                player.rect.x = 105
-                player.rect.y = 450
+                player = Player()
                 bullet = Bullet()
                 allSprites.add(bullet)
                 secondBullet = SecondBullet()
@@ -258,6 +257,7 @@ while run:
 
             else:
                 alive -= 1
+                game_point = player.point
                 resetLevel()
                 if player.level == 1:
                     levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
@@ -266,8 +266,7 @@ while run:
                 elif player.level == 3:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                 allSprites.empty()
-                player.rect.x = 105
-                player.rect.y = 450
+                player = Player()
                 bullet = Bullet()
                 allSprites.add(bullet)
                 secondBullet = SecondBullet()
