@@ -274,8 +274,8 @@ class Levels():
         world.platformer(self.stair, x_pos=388, y_pos=50, loopControl=9, axs=False, group=stairGroup)
         # level-3 coins
         coinCoordinates = [
-            [40, 500],
-            [750, 500],
+            [40, 490],
+            [750, 490],
             [137, 245],
             [657, 245],
             [270, 40],

@@ -47,6 +47,9 @@ world = World()
 allSprites.add(bullet)
 allSprites.add(secondBullet)
 # rect_list = world.platform_rect()
+jumpman = pygame.image.load("images/jumpman/jumpman.gif")
+jumpman = pygame.transform.scale(jumpman, (int(jumpman.get_width() * 1.2), int(jumpman.get_height() * 1.2)))
+jumpman_position = [60, 100, 140, 180, 220]
 
 # Clock to limit speed
 clock = pygame.time.Clock()
@@ -151,15 +154,18 @@ while run:
         initial_Screen()
     else:
         if not (gameFinished or gameWin):
-            point = font.render("Point: " + str(player.point), True, white)
-            pointPos = point.get_rect(centerx=600, centery=550)
+            pointMessage = font.render("Point: ", True, white)
+            pointMessagePos = pointMessage.get_rect(centerx=650, centery=560)
+            screen.blit(pointMessage, pointMessagePos)
+            point = font.render(str(player.point), True, white)
+            pointPos = point.get_rect(centerx=725, centery=560)
             screen.blit(point, pointPos)
             level = font.render("Level: " + str(player.level) + "/3", True, white)
-            levelPos = level.get_rect(centerx=600, centery=575)
+            levelPos = level.get_rect(centerx=525, centery=560)
             screen.blit(level, levelPos)
-            isAlive = font.render("Health: " + str(alive), True, white)
-            isAlivePos = isAlive.get_rect(centerx=100, centery=550)
-            screen.blit(isAlive, isAlivePos)
+            for position in jumpman_position[0:alive]:
+                jumpmanPos = jumpman.get_rect(centerx=position, centery=550)
+                screen.blit(jumpman, jumpmanPos)
 
             platformGroup.draw(screen)
             rampGroupU.draw(screen)
@@ -298,6 +304,7 @@ while run:
             resetLevel()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    alive = 5
                     levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                     allSprites.empty()
                     player = Player()
@@ -311,6 +318,7 @@ while run:
             resetLevel()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    alive = 5
                     levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
                     allSprites.empty()
                     player = Player()
