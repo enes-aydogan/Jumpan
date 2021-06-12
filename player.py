@@ -23,7 +23,7 @@ class Player(Sprite):
         self.sound_coin = pygame.mixer.Sound("sounds/coin.wav")
         self.rect = self.image.get_rect()
         self.rect.x = 105
-        self.rect.y = 450
+        self.rect.y = 451
         self.rect.w = 32
         self.rect.h = 32
         self.screenheight = pygame.display.get_surface().get_height()
@@ -124,7 +124,7 @@ class Player(Sprite):
             self.point += 100
             if len(coinGroup) == 0:
                 self.levelChange = True
-                self.level += 1
+                self.level = 4
 
     def move(self, event):
         if event.type == pygame.KEYDOWN:

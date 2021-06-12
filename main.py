@@ -74,9 +74,15 @@ def initial_Screen():
     titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(title, titlePos)
 
-    startMessage = font.render("press any key to start", True, white)
-    startMessagePos = startMessage.get_rect(centerx=background.get_width() / 2, centery=330)
-    screen.blit(startMessage, startMessagePos)
+    level1 = font.render("Press 1 for Level-1", True, white)
+    level1Pos = level1.get_rect(centerx=background.get_width() / 2, centery=330)
+    screen.blit(level1, level1Pos)
+    level2 = font.render("Press 2 for Level-2", True, white)
+    level2Pos = level2.get_rect(centerx=background.get_width() / 2, centery=360)
+    screen.blit(level2, level2Pos)
+    level3 = font.render("Press 3 for Level-3", True, white)
+    level3Pos = level3.get_rect(centerx=background.get_width() / 2, centery=390)
+    screen.blit(level3, level3Pos)
 
     author = authorFont.render("Authors: Muhammet Enes Aydoğan and Hilmi Can Taşkıran", True, white)
     authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
@@ -88,7 +94,7 @@ def game_finished_screen():
     gameOverPos = gameOver.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(gameOver, gameOverPos)
 
-    point = font.render("Point: " + str(game_point), True, white)
+    point = font.render("Point: " + str(player.point), True, white)
     pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
     screen.blit(point, pointPos)
 
@@ -102,7 +108,7 @@ def game_win_screen():
     gameWinPos = gameWin.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(gameWin, gameWinPos)
 
-    point = font.render("Point: " + str(game_point), True, white)
+    point = font.render("Point: " + str(player.point), True, white)
     pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
     screen.blit(point, pointPos)
 
@@ -128,6 +134,7 @@ def resetLevel():
 
 
 levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+speed = 1
 gameFinished = False
 gameWin = False
 alive = 5
@@ -145,13 +152,25 @@ while run:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 run = False
-            initial_screen = False
+            if event.key == pygame.K_1:
+                initial_screen = False
+            if event.key == pygame.K_2:
+                player.levelChange = True
+                player.level = 2
+                speed = 2
+                initial_screen = False
+            if event.key == pygame.K_3:
+                player.levelChange = True
+                player.level = 3
+                speed = 3
+                initial_screen = False
 
             if not initial_screen:
                 mainSound.stop()
 
     if initial_screen:
         initial_Screen()
+
     else:
         if not (gameFinished or gameWin):
             pointMessage = font.render("Point: ", True, white)
@@ -187,7 +206,7 @@ while run:
 
                     if bullet.moveOnlyY:
                         bullet.rect.x -= bullet.movey
-                        bullet.rect.y += bullet.movey + 3
+                        bullet.rect.y += bullet.movey * speed
 
                     if bullet.rect.x == (bullet.rect.x - bullet.movey):
                         bullet.moveOnlyY = False
@@ -195,31 +214,22 @@ while run:
                 elif bullet.rect.x > 801 or bullet.rect.y > 601:
                     bullet = Bullet()
                     allSprites.add(bullet)
-                    bullet.rect.x += bullet.movex
-                    if bullet.rect.x - 16 == player.rect.x:
-                        bullet.moveOnlyY = True
-
-                    if bullet.moveOnlyY:
-                        bullet.rect.x -= bullet.movey
-                        bullet.rect.y += bullet.movey
-
-                    if bullet.rect.x == (bullet.rect.x - bullet.movey):
-                        bullet.moveOnlyY = False
-
-
             else:
                 alive -= 1
-                game_point = player.point
                 resetLevel()
                 if player.level == 1:
                     levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    speed = 1
                 elif player.level == 2:
                     levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                    speed = 2
                 elif player.level == 3:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
-
+                    speed = 3
                 allSprites.empty()
-                player = Player()
+                player.rect.x = 105
+                player.rect.y = 451
+                player.point = 0
                 bullet = Bullet()
                 allSprites.add(bullet)
                 secondBullet = SecondBullet()
@@ -236,7 +246,7 @@ while run:
 
                     if secondBullet.moveOnlyY:
                         secondBullet.rect.y -= secondBullet.movey
-                        secondBullet.rect.x += secondBullet.movex
+                        secondBullet.rect.x += secondBullet.movex * speed
 
                     if secondBullet.rect.y == (secondBullet.rect.y - secondBullet.movey):
                         secondBullet.moveOnlyY = False
@@ -244,29 +254,22 @@ while run:
                 elif secondBullet.rect.x > 801 or secondBullet.rect.y > 601:
                     secondBullet = SecondBullet()
                     allSprites.add(secondBullet)
-                    secondBullet.rect.x += secondBullet.movex
-                    if secondBullet.rect.x - 15 == player.rect.x:
-                        secondBullet.moveOnlyY = True
-
-                    if secondBullet.moveOnlyY:
-                        secondBullet.rect.x -= secondBullet.movey
-                        secondBullet.rect.y += secondBullet.movey + 3
-
-                    if secondBullet.rect.x == (secondBullet.rect.x - secondBullet.movey):
-                        secondBullet.moveOnlyY = False
-
             else:
                 alive -= 1
-                game_point = player.point
                 resetLevel()
                 if player.level == 1:
                     levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    speed = 1
                 elif player.level == 2:
                     levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                    speed = 2
                 elif player.level == 3:
                     levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    speed = 3
                 allSprites.empty()
-                player = Player()
+                player.rect.x = 105
+                player.rect.y = 451
+                player.point = 0
                 bullet = Bullet()
                 allSprites.add(bullet)
                 secondBullet = SecondBullet()
@@ -303,11 +306,17 @@ while run:
 
         if gameFinished:
             game_finished_screen()
-            resetLevel()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     alive = 5
-                    levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    if player.level == 1:
+                        levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform,
+                                      coinGroup)
+                    elif player.level == 2:
+                        levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                    elif player.level == 3:
+                        levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform,
+                                      coinGroup)
                     allSprites.empty()
                     player = Player()
                     bullet = Bullet()
@@ -317,11 +326,17 @@ while run:
                     gameFinished = False
         if gameWin:
             game_win_screen()
-            resetLevel()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     alive = 5
-                    levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
+                    if player.level == 1:
+                        levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform,
+                                      coinGroup)
+                    elif player.level == 2:
+                        levels.level2(world, platformGroup, stairGroup, bottomPlatform, coinGroup)
+                    elif player.level == 3:
+                        levels.level3(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform,
+                                      coinGroup)
                     allSprites.empty()
                     player = Player()
                     bullet = Bullet()
