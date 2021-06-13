@@ -11,7 +11,6 @@ class Levels():
         self.stair = pygame.image.load("images/platform/stair.gif")
         self.ivy = pygame.image.load("images/platform/ivy.gif")
 
-        self.totalCoin = 0
 
     def level1(self, world, pGroup, sGroup, rGroupU, rGroupD, bottomPlatform, coinGroup):
         # Main ground
