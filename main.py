@@ -46,6 +46,8 @@ world = World()
 allSprites.add(bullet)
 allSprites.add(secondBullet)
 # rect_list = world.platform_rect()
+
+# Jumpman image and position
 jumpman = pygame.image.load("images/jumpman/jumpman.gif")
 jumpman = pygame.transform.scale(jumpman, (int(jumpman.get_width() * 1.2), int(jumpman.get_height() * 1.2)))
 jumpman_position = [60, 100, 140, 180, 220]
@@ -57,6 +59,7 @@ clock = pygame.time.Clock()
 run = True
 initial_screen = True
 
+# Sprite Group
 platformGroup = pygame.sprite.Group()
 stairGroup = pygame.sprite.Group()
 rampGroupU = pygame.sprite.Group()
@@ -64,58 +67,66 @@ rampGroupD = pygame.sprite.Group()
 coinGroup = pygame.sprite.Group()
 bottomPlatform = pygame.sprite.Group()
 
+# Main Sound
 mainSound = pygame.mixer.Sound("sounds/main.wav")
 mainSound.play(0)
 
 
+# Initial Screen
 def initial_Screen():
+    # Title
     title = titleFont.render("JUMPMAN", True, (77, 166, 48))
-    titlePos = title.get_rect(centerx=background.get_width() / 2, centery=250)
+    titlePos = title.get_rect(centerx=background.get_width() / 2, centery=150)
     screen.blit(title, titlePos)
-
-    level1 = font.render("Press 1 for Level-1", True, white)
+    # Levels
+    level1 = font.render("Press 1  for  Level-1 ", True, white)
     level1Pos = level1.get_rect(centerx=background.get_width() / 2, centery=330)
     screen.blit(level1, level1Pos)
-    level2 = font.render("Press 2 for Level-2", True, white)
+    level2 = font.render("Press 2 for  Level-2", True, white)
     level2Pos = level2.get_rect(centerx=background.get_width() / 2, centery=360)
     screen.blit(level2, level2Pos)
-    level3 = font.render("Press 3 for Level-3", True, white)
+    level3 = font.render("Press 3 for  Level-3", True, white)
     level3Pos = level3.get_rect(centerx=background.get_width() / 2, centery=390)
     screen.blit(level3, level3Pos)
-
+    # Authors
     author = authorFont.render("Authors: Muhammet Enes Aydoğan and Hilmi Can Taşkıran", True, white)
     authorPos = author.get_rect(centerx=background.get_width() / 2, centery=575)
     screen.blit(author, authorPos)
 
 
+# Game Finish Screen
 def game_finished_screen():
+    # Game Over
     gameOver = titleFont.render("Game Over", True, white)
     gameOverPos = gameOver.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(gameOver, gameOverPos)
-
-    point = font.render("Point: " + str(player.point), True, white)
+    # Score
+    point = font.render("Score: " + str(player.point), True, white)
     pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
     screen.blit(point, pointPos)
-
+    # Restart Key
     press = font.render("Press Enter to restart", True, white)
     pressPos = press.get_rect(centerx=background.get_width() / 2, centery=500)
     screen.blit(press, pressPos)
 
 
+# Game Win Screen
 def game_win_screen():
+    # Game Win
     gameWin = titleFont.render("Game Win", True, white)
     gameWinPos = gameWin.get_rect(centerx=background.get_width() / 2, centery=250)
     screen.blit(gameWin, gameWinPos)
-
-    point = font.render("Point: " + str(player.point), True, white)
+    # Score
+    point = font.render("Score: " + str(player.point), True, white)
     pointPos = point.get_rect(centerx=background.get_width() / 2, centery=350)
     screen.blit(point, pointPos)
-
+    # Restart Key
     press = font.render("Press Enter to restart", True, white)
     pressPos = press.get_rect(centerx=background.get_width() / 2, centery=500)
     screen.blit(press, pressPos)
 
 
+# Reset Level
 def resetLevel():
     global platformGroup
     global stairGroup
@@ -132,12 +143,14 @@ def resetLevel():
     bottomPlatform = pygame.sprite.Group()
 
 
+# Initial Level
 levels.level1(world, platformGroup, stairGroup, rampGroupU, rampGroupD, bottomPlatform, coinGroup)
 speed = 1
 gameFinished = False
 gameWin = False
 alive = 5
 delay = 1
+
 # Main program loop
 while run:
     # Limit to 30 fps
@@ -172,7 +185,7 @@ while run:
 
     else:
         if not (gameFinished or gameWin):
-            pointMessage = font.render("Point: ", True, white)
+            pointMessage = font.render("Score: ", True, white)
             pointMessagePos = pointMessage.get_rect(centerx=650, centery=560)
             screen.blit(pointMessage, pointMessagePos)
             point = font.render(str(player.point), True, white)
@@ -196,7 +209,7 @@ while run:
             player.move(event)
             player.functions(platformGroup, stairGroup, rampGroupU, rampGroupD, screen, bottomPlatform, coinGroup)
             player.gravity(platformGroup, rampGroupU, rampGroupD, bottomPlatform)
-
+            # Bullet
             if not bullet.rect.colliderect(player.rect):
                 if bullet.rect.x < 802 and bullet.rect.y < 602:
                     bullet.rect.x += bullet.movex
