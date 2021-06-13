@@ -1,4 +1,4 @@
-from platformPiece import Platform
+from platformPiece import platformPiece
 
 
 class World:
@@ -12,14 +12,14 @@ class World:
         if axs:
             self.stp = x_pos
             while control < loopControl:
-                platform = Platform(image, self.stp, y_pos)
+                platform = platformPiece(image, self.stp, y_pos)
                 group.add(platform)
                 self.stp += 10
                 control += 1
         else:
             self.stp = y_pos
             while control < loopControl:
-                platform = Platform(image, x_pos, self.stp)
+                platform = platformPiece(image, x_pos, self.stp)
                 group.add(platform)
                 self.stp += 15
                 control += 1

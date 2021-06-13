@@ -2,7 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 
 
-class Platform(Sprite):
+class platformPiece(Sprite):
     def __init__(self, image, x, y):
         Sprite.__init__(self)
         self.image = image
