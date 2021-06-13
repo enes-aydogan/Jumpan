@@ -1,4 +1,3 @@
-import sys
 import pygame
 from player import Player
 import platformPiece

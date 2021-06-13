@@ -1,6 +1,5 @@
 import pygame
 from pygame.sprite import Sprite
-from world import World
 
 
 class Coin(Sprite):
