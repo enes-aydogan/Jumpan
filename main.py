@@ -296,7 +296,6 @@ while run:
                 if alive == 0:
                     gameFinished = True
 
-            # levels.level1coin(screen, player.rect.x, player.rect.y, player.rect.w, player.rect.h)
             if player.levelChange:
                 resetLevel()
                 if player.level == 2:

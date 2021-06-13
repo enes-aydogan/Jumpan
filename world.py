@@ -6,6 +6,8 @@ class World:
         pass
 
     def platformer(self, image, x_pos, y_pos, loopControl, axs, group):
+        # axs determines which axis we add
+        # loopControl determines how many to add
         control = 0
         if axs:
             self.stp = x_pos
